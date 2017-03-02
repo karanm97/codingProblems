@@ -5,9 +5,7 @@ class KadaneModified
 {
     public static int kadane(int[] a)
     {
-        int size = a.length, max_so_far = 0, max_ending_here = 0, lower_limit = 0, upper_limit = 0;
-        int startIndex = 0, maxStartIndex = 0;
-        int maxEndIndex = -1;
+        int size = a.length, max_so_far = 0, max_ending_here = 0,  startIndex = 0, maxStartIndex = 0, maxEndIndex = -1;
         for(int i = 0; i < size; i++)
         {
             max_ending_here = max_ending_here + a[i];

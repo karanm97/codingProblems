@@ -18,11 +18,41 @@ class Treeroot {
 			for(int i = 0; i < nodeCount; i++) {
 				unique_id[i] = fs.nextInt();
 				child_sum[i] = fs.nextInt();
-				if(child_sum[i] > temp)
-					al.add(i);
-					temp = child_sum[i];			
+                // System.out.println(i);
+				if(temp <= child_sum[i]) {
+                    al.add(i);
+                    temp = child_sum[i];    
+                }						
+                // System.out.println();
 			}
-			System.out.println(al);
+
+            // prints the unique id and sum 
+            // for(int i = 0; i < nodeCount; i++) {
+            //     System.out.print(unique_id[i]);
+            //     System.out.print("\t"+child_sum[i]);
+            //     System.out.println();
+            // }
+
+
+
+            // for(int iterator : al) {
+            //     System.out.println(iterator);
+            // }
+            // for(int a = 0; a < al.size(); a++) {
+            //     System.out.println()
+            // }
+
+            // Collections.sort(al);
+            int another = Integer.MIN_VALUE;
+            for(int iterator : al) {
+                // System.out.println(unique_id[iterator]);
+                if(another <= unique_id[iterator]) {
+                    another = unique_id[iterator];                    
+                }
+            }
+            System.out.println(another);
+
+
 
 		}	
 	}

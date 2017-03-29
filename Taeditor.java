@@ -1,9 +1,18 @@
 class Taeditor {
-    
-    public static void main(String[] args) {
-    	FastReader fs = new FastReader();
-    	int cases = fs.nextInt();
 
+    public static void main(String[] args) {
+        FastReader fs = new FastReader();
+        int cases = fs.nextInt();
+        StringBuilder S = new StringBuilder();
+        while(cases-- > 0) {
+            StringBuilder query = fs.nextLine();
+            if(query.charAt(0) == '+') {
+       			
+       			
+            } else {
+       
+            }
+        }
     }
 
     static class FastReader {

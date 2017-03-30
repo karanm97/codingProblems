@@ -1,26 +1,24 @@
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 class Taeditor {
 
     public static void main(String[] args) throws IOException {
-        //        System.setIn(new FileInputStream("C:\\Users\\karan\\Desktop\\codingProblems\\src\\case.txt"));
+        BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
         FastReader fs = new FastReader();
         int cases = fs.nextInt();
         StringBuilder mainString = new StringBuilder();
-        StringBuilder printStream = new StringBuilder();
         while (cases-- > 0) {
             String query[] = fs.nextLine().split(" ");
             if (query[0].equals("+")) {
                 mainString.insert(Integer.parseInt(query[1]), query[2]);
             } else {
-                printStream.append(mainString.substring(Integer.parseInt(query[1]) - 1, Integer.parseInt(query[2]))).append("\n");
+                int a = Integer.parseInt(query[1]) - 1;
+                int b = Integer.parseInt(query[2]) - 1;
+                log.write(mainString.substring(a, a + b + 1) + "\n");
             }
         }
-        System.out.println(printStream);
+        log.flush();
     }
 
     static class FastReader {

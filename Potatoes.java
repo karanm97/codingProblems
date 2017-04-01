@@ -1,29 +1,45 @@
+/*
+Solution of Codechef Problem - Farmer Feb
+Problem Code - POTATOES
+Link - https://www.codechef.com/problems/POTATOES
+*/
+
 import java.io.*;
 import java.util.*;
 
 class Potatoes {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
-        new Potatoes().process();
-    }
-
-    public void process() {
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
-        int j = 0, x = 0, y = 0, sum = 0, p = 1;
+        int j = 0, x = 0, y = 0, sum;
         while(j++ < testCases) {
             x = fs.nextInt();
             y = fs.nextInt();
-            sum = x + y + p;
-            for(int i = 2; i < sum / 2; i++) {
-                if((sum / 2) % i == 0) {
-                	System.out.println("inside for");
-                    sum++;
-                }
+            sum = x + y + 1;
+            while(!isPrime(sum)) {
+                sum++;
             }
             System.out.println(sum - x - y);
         }
+    }
+
+    static boolean isPrime(int number) {
+        if(number < 2) {
+            return false;
+        }
+        if(number == 2) {
+            return true;
+        }
+        if(number % 2 == 0) {
+            return false;
+        }
+        for(int i = 3; i <= Math.sqrt(number); i += 2) {
+            if(number % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     static class FastReader {
@@ -48,6 +64,5 @@ class Potatoes {
         int nextInt() {
             return Integer.parseInt(next());
         }
-
     }
 }

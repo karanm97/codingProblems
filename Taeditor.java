@@ -1,13 +1,22 @@
-import java.io.*;
+/*
+Solution of Codechef Problem - Simple Editor
+Problem Code - TAEDITOR
+Link - https://www.codechef.com/problems/TAEDITOR
+*/
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 class Taeditor {
 
     public static void main(String[] args) throws IOException {
-        BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
         FastReader fs = new FastReader();
         int cases = fs.nextInt();
         StringBuilder mainString = new StringBuilder();
+        StringBuilder printStream = new StringBuilder();
         while (cases-- > 0) {
             String query[] = fs.nextLine().split(" ");
             if (query[0].equals("+")) {
@@ -15,10 +24,10 @@ class Taeditor {
             } else {
                 int a = Integer.parseInt(query[1]) - 1;
                 int b = Integer.parseInt(query[2]) - 1;
-                log.write(mainString.substring(a, a + b + 1) + "\n");
+                printStream.append(mainString.substring(a, a + b + 1)).append("\n");
             }
         }
-        log.flush();
+        System.out.println(printStream);
     }
 
     static class FastReader {

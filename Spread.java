@@ -10,21 +10,24 @@ class Spread {
     public static void main(String[] args) throws IOException {
         System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
-        long[] N = new long[(int)fs.nextLong()];
+        long[] N = new long[(int) fs.nextLong()];
         int M = fs.nextInt();
         int C = fs.nextInt();
+        long sum = C;
         Arrays.fill(N, C);
-        //        for (long i : N) {
-        //            System.out.println(i);
-        //        }
+//        for (long i : N) {
+//            System.out.println(i);
+//        }
+
         for (int i = 0; i < M; i++) {
             String query[] = fs.nextLine().split(" ");
             if (query[0].equals("S")) {
                 int lower = Integer.parseInt(query[1]);
                 int upper = Integer.parseInt(query[2]);
                 long add = Long.parseLong(query[3]);
+                sum += add;
                 // System.out.println(lower + " " + upper + " " + add);
-                Arrays.fill(N, lower, upper, add);
+                Arrays.fill(N, lower, upper, sum);
             } else {
                 long P = Long.parseLong(query[1]);
                 System.out.println(N[(int) P - 1]);

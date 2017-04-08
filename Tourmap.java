@@ -1,15 +1,12 @@
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.io.InputStreamReader;
+import java.util.*;
 
 class Tourmap {
 
     public static void main(String[] args) throws IOException {
-        FastReader fs = new FastReader(System.in);
+        FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while (testCases-- > 0) {
             Map<String, String> startCity = new HashMap<>();
@@ -46,84 +43,43 @@ class Tourmap {
 }
 
 class FastReader {
-    private InputStream stream;
-    private byte[] buf = new byte[1024];
+    BufferedReader br;
+    StringTokenizer st;
 
-    private int curChar;
-
-    private int numChars;
-
-    public FastReader(InputStream stream) {
-        this.stream = stream;
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public int read() {
-        if (curChar >= numChars) {
-            curChar = 0;
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
             try {
-                numChars = stream.read(buf);
+                st = new StringTokenizer(br.readLine());
             } catch (IOException e) {
-                throw new RuntimeException();
-            }
-            if (numChars <= 0) {
-                return -1;
+                e.printStackTrace();
             }
         }
-        return buf[curChar++];
+        return st.nextToken();
     }
 
-    public String nextLine() {
-        final StringBuilder stringBuilder = new StringBuilder();
-        int c = read();
-        while (isSpaceChar(c)) {
-            c = read();
-        }
-        do {
-            stringBuilder.appendCodePoint(c);
-            c = read();
-        } while (!isSpaceChar(c));
-        return stringBuilder.toString();
+    int nextInt() {
+        return Integer.parseInt(next());
     }
 
-    public int nextInt() {
-        int c = read();
-        while (isSpaceChar(c)) {
-            c = read();
-        }
-        int sgn = 1;
-        if (c == '-') {
-            sgn = -1;
-            c = read();
-        }
-        int res = 0;
-        do {
-            res *= 10;
-            res += c - '0';
-            c = read();
-        } while (!isSpaceChar(c));
-        return res * sgn;
+    long nextLong() {
+        return Long.parseLong(next());
     }
 
-    public long readLong() {
-        int c = read();
-        while (isSpaceChar(c)) {
-            c = read();
-        }
-        int sgn = 1;
-        if (c == '-') {
-            sgn = -1;
-            c = read();
-        }
-        long res = 0;
-        do {
-            res *= 10;
-            res += c - '0';
-            c = read();
-        } while (!isSpaceChar(c));
-        return res * sgn;
+    double nextDouble() {
+        return Double.parseDouble(next());
     }
 
-    public boolean isSpaceChar(int c) {
-        return c == '\n' || c == '\r' || c == '\t' || c == -1;
+    String nextLine() {
+        String str = "";
+        try {
+            str = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 }

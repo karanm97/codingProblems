@@ -1,5 +1,5 @@
 /*
-Solution of Codechef Problem - Similar Dishes 
+Solution of Codechef Problem - Similar Dishes
 Problem Code - SIMDISH
 Link - https://www.codechef.com/APRIL17/problems/SIMDISH
 */
@@ -74,5 +74,4 @@ class Simdish {
             return str;
         }
     }
-
 }

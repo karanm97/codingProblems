@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Dish Of Life
+Problem Code - DISHLIFE
+Link - https://www.codechef.com/problems/DISHLIFE
+*/
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,53 +15,49 @@ import java.util.StringTokenizer;
 class Dishlife {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while (testCases-- > 0) {
-            StringBuilder result = new StringBuilder();
-            int n = fs.nextInt();
-            int k = fs.nextInt();
-            int count = 0;
-            for (int i = 0; i < n; i++) {
-
-                int size = fs.nextInt();
-                count += size;
-//                if (size < k) {
-//                    result.append("a");
-//                }
-
-//                else {
-                    Set<Integer> set = new HashSet<>();
-                    for (int j = 0; j < size; j++) {
-                        set.add(fs.nextInt());
-                    }
-                    while (k-- > 0) {
-                        if (!set.contains(k)) {
-                            result.append("a");
-                        }
-                    }
-
-//                }
+            long n = fs.nextLong();
+            long k = fs.nextLong();
+            boolean flag = false;
+            Set<Long> set = new HashSet<>();
+            for (int i = 0; i < k; i++) {
+                set.add((long) (i + 1));
             }
-            System.out.println("The result is "+result);
-            if (result.toString().length() == n) {
-                System.out.println("sad");
-            } else if (true) {
-                System.out.println("some");
+            for (int i = 0; i < n; i++) {
+                long q = fs.nextLong();
+                long count = 0;
+                for (int j = 0; j < q; j++) {
+                    long value = fs.nextLong();
+                    if (!set.remove(value)) {
+                        count++;
+                    }
+                }
+                if (count == q) {
+                    flag = true;
+                }
+            }
+            if (set.isEmpty()) {
+                if (flag) {
+                    System.out.println("some");
+                } else {
+                    System.out.println("all");
+                }
             } else {
-                System.out.println("all");
+                System.out.println("sad");
             }
         }
     }
 
     static class FastReader {
+
+
         BufferedReader br;
         StringTokenizer st;
 
         public FastReader() {
-            br = new BufferedReader(new
-                    InputStreamReader(System.in));
+            br = new BufferedReader(new InputStreamReader(System.in));
         }
 
         String next() {
@@ -71,6 +73,10 @@ class Dishlife {
 
         int nextInt() {
             return Integer.parseInt(next());
+        }
+
+        long nextLong() {
+            return Long.parseLong(next());
         }
 
         String nextLine() {

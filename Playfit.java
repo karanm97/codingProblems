@@ -7,26 +7,30 @@ class Playfit {
     public static void main(String[] args) throws IOException {
         System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
+        PrintWriter printWriter = new PrintWriter(System.out);
         int testCases = fs.nextInt();
         while (testCases-- > 0) {
             int gamesPlayed = fs.nextInt();
-            int maxGoal = 0, minGoal = 0;
-            int globalMinimum = Integer.MAX_VALUE;
             int[] gameArray = new int[gamesPlayed];
+            int maxGoal = 0;
             for (int i = 0; i < gamesPlayed; i++) {
                 gameArray[i] = fs.nextInt();
-                minGoal = gameArray[i];
-                if (i != 0 && minGoal < gameArray[i]) {
-                    maxGoal = gameArray[i];
+            }
+            for (int i = 0; i < gamesPlayed - 1; i++) {
+                for (int j = i + 1; j < gamesPlayed; j++) {
+                    int goalDifference = gameArray[j] - gameArray[i];
+                    if((goalDifference) > maxGoal) {
+                        maxGoal = goalDifference;
+                    }
                 }
             }
-            if(maxGoal - minGoal <= 0) {
-                System.out.println("UNFIT");
-            }
-            else {
-
+            if (maxGoal > 0) {
+                printWriter.println(maxGoal);
+            } else {
+                printWriter.println("UNFIT");
             }
         }
+        printWriter.close();
     }
 
     static class FastReader {
@@ -35,7 +39,7 @@ class Playfit {
 
         public FastReader() {
             br = new BufferedReader(new
-                    InputStreamReader(System.in));
+                                    InputStreamReader(System.in));
         }
 
         String next() {

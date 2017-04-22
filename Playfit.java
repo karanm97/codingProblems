@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Fit to Play
+Problem Code - PLAYFIT
+Link - https://www.codechef.com/problems/PLAYFIT
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;

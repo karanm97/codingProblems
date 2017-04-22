@@ -5,24 +5,19 @@ import java.lang.*;
 class Playfit {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         PrintWriter printWriter = new PrintWriter(System.out);
         int testCases = fs.nextInt();
         while (testCases-- > 0) {
             int gamesPlayed = fs.nextInt();
             int[] gameArray = new int[gamesPlayed];
-            int maxGoal = 0;
             for (int i = 0; i < gamesPlayed; i++) {
                 gameArray[i] = fs.nextInt();
             }
-            for (int i = 0; i < gamesPlayed - 1; i++) {
-                for (int j = i + 1; j < gamesPlayed; j++) {
-                    int goalDifference = gameArray[j] - gameArray[i];
-                    if((goalDifference) > maxGoal) {
-                        maxGoal = goalDifference;
-                    }
-                }
+            int maxGoal = 0, minGoal = gameArray[0];
+            for (int i = 1; i < gamesPlayed; i++) {
+                minGoal = Math.min(minGoal, gameArray[i]);
+                maxGoal = Math.max(maxGoal, gameArray[i] - minGoal);
             }
             if (maxGoal > 0) {
                 printWriter.println(maxGoal);

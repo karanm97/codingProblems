@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Capital Movement
+Problem Code - CAPIMOVE
+Link - https://www.codechef.com/problems/CAPIMOVE
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -26,7 +32,6 @@ class Capimove {
                 adjMatrix[i][i] = 1;
             }
             adjMatrix[planetCount][planetCount] = 1;
-            
             // Prints Adjacency Matrix
             /*for (int i = 0; i <= planetCount; i++ ) {
                 for (int j = 0; j <= planetCount; j++) {
@@ -34,15 +39,13 @@ class Capimove {
                 }
                 System.out.println();
             }*/
-            
             for(int i = 1; i <= planetCount; i++) {
                 PriorityQueue<Integer> copyQueue = new PriorityQueue<Integer>(queue);
-                // System.out.println(copyQueue.peek());
                 int temp = map.get(copyQueue.peek());
                 while(adjMatrix[i][temp] != 0) {
                     temp = map.get(copyQueue.poll());
                 }
-                System.out.print(temp+" ");
+                System.out.print(temp + " ");
             }
         }
     }

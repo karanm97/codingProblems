@@ -10,9 +10,8 @@ class Capimove {
         int testCases = fs.nextInt();
         while(testCases-- > 0) {
             int planetCount = fs.nextInt();
-            Set<Integer> set = new HashSet<Integer>();
             Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-            PriorityQueue<Integer> queue = new PriorityQueue<Integer>((x,y) -> y-x);
+            PriorityQueue<Integer> queue = new PriorityQueue<Integer>((x, y) -> y - x);
             for(int i = 1; i <= planetCount; i++) {
                 int item = fs.nextInt();
                 queue.add(item);
@@ -26,20 +25,21 @@ class Capimove {
                 adjMatrix[U][V] = 1;
                 adjMatrix[i][i] = 1;
             }
-            for (int i = 0; i <= planetCount; i++ ) {
+            adjMatrix[planetCount][planetCount] = 1;
+            /*for (int i = 0; i <= planetCount; i++ ) {
                 for (int j = 0; j <= planetCount; j++) {
                     System.out.print(adjMatrix[i][j] + " ");
                 }
                 System.out.println();
-            }
+            }*/
             for(int i = 1; i <= planetCount; i++) {
                 PriorityQueue<Integer> copyQueue = new PriorityQueue<Integer>(queue);
                 // System.out.println(copyQueue.peek());
-                int temp = map.get(copyQueue.poll());
-                if(adjMatrix[i][temp]!=0){
-                    System.out.println(temp);
+                int temp = map.get(copyQueue.peek());
+                while(adjMatrix[i][temp] != 0) {
+                    temp = map.get(copyQueue.poll());
                 }
-                   
+                System.out.print(temp+" ");
             }
         }
     }

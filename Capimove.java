@@ -26,12 +26,15 @@ class Capimove {
                 adjMatrix[i][i] = 1;
             }
             adjMatrix[planetCount][planetCount] = 1;
+            
+            // Prints Adjacency Matrix
             /*for (int i = 0; i <= planetCount; i++ ) {
                 for (int j = 0; j <= planetCount; j++) {
                     System.out.print(adjMatrix[i][j] + " ");
                 }
                 System.out.println();
             }*/
+            
             for(int i = 1; i <= planetCount; i++) {
                 PriorityQueue<Integer> copyQueue = new PriorityQueue<Integer>(queue);
                 // System.out.println(copyQueue.peek());

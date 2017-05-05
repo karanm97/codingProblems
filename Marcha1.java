@@ -11,9 +11,12 @@ class Marcha1 {
         while(testCases-- > 0) {
             int noteCount = fs.nextInt();
             int muggerAmount = fs.nextInt();
+            int 
             for(int i = 0; i < noteCount; i++) {
             	int temp = fs.nextInt();
-            	if(temp < muggerAmount)
+            	if(temp <= muggerAmount) {
+
+            	}
             }
         }
     }

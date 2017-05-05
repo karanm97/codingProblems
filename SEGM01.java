@@ -11,6 +11,7 @@ import java.lang.*;
 class SEGM01 {
 
     public static void main(String[] args) throws IOException {
+    	System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while(testCases-- > 0) {

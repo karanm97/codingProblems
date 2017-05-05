@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Chef and his daily routine
+Problem Code - CHEFROUT
+Link - https://www.codechef.com/problems/CHEFROUT
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -5,30 +11,28 @@ import java.lang.*;
 class CHEFROUT {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while(testCases-- > 0) {
             String inputString = fs.nextLine();
             int length = inputString.length();
-            boolean hasCooked = false, hasSlept = false, hasEaten = false;
-            StringBuilder result = new StringBuilder();
+            int initialValue = 0;
+            boolean result = false;
             for(int i = 0; i < length; i++) {
-                char character = inputString.charAt(i);
-                if(character == 'C' && hasSlept == false) {
-                    hasCooked = true;
-                    result = new StringBuilder("yes");
-                } else if(character == 'E' && hasCooked == true && hasSlept == false) {
-                    result = new StringBuilder("yes");
-                } else if(character == 'S') {
-                    // result = new StringBuilder("no");
-                    hasSlept = true;
-                }
-                else {
-                	result = new StringBuilder("no");
+                int ASCII_VALUE = (int) inputString.charAt(i);
+                if(ASCII_VALUE >= initialValue) {
+                    result = true;
+                    initialValue = ASCII_VALUE;
+                } else {
+                    result = false;
+                    break;
                 }
             }
-            System.out.println(result);
+            if(result) {
+                System.out.println("yes");
+            } else {
+                System.out.println("no");
+            }
         }
     }
 

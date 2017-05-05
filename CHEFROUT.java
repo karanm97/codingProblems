@@ -9,8 +9,26 @@ class CHEFROUT {
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while(testCases-- > 0) {
-                  
-
+            String inputString = fs.nextLine();
+            int length = inputString.length();
+            boolean hasCooked = false, hasSlept = false, hasEaten = false;
+            StringBuilder result = new StringBuilder();
+            for(int i = 0; i < length; i++) {
+                char character = inputString.charAt(i);
+                if(character == 'C' && hasSlept == false) {
+                    hasCooked = true;
+                    result = new StringBuilder("yes");
+                } else if(character == 'E' && hasCooked == true && hasSlept == false) {
+                    result = new StringBuilder("yes");
+                } else if(character == 'S') {
+                    // result = new StringBuilder("no");
+                    hasSlept = true;
+                }
+                else {
+                	result = new StringBuilder("no");
+                }
+            }
+            System.out.println(result);
         }
     }
 

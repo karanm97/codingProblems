@@ -11,7 +11,7 @@ import java.lang.*;
 class CHEFSUBA {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int N = fs.nextInt();
         int K = fs.nextInt();
@@ -23,13 +23,15 @@ class CHEFSUBA {
         char[] dogRequest = fs.nextLine().toCharArray();
         for(char charIterator : dogRequest) {
             if(charIterator == '?') {
-                System.out.println(returnWindowMax(binaryArray, P, N));
+                System.out.println(returnWindowMax(binaryArray, K, N));
             } else {
                 binaryArray = rotateArray(binaryArray, 1, N);
             }
         }
     }
 
+
+    // working
     public static int[] rotateArray(int[] binaryArray, int k, int N) {
         int temp = binaryArray[N - 1], i;
         for (i = N - 2; i >= 0; i--) {
@@ -39,12 +41,16 @@ class CHEFSUBA {
         return binaryArray;
     }
 
-    public static int returnWindowMax(int[] binaryArray, int P, int N) {
+    // issue
+    public static int returnWindowMax(int[] binaryArray, int K, int N) {
         int max = 0;
-        for(int i = 1; i <= binaryArray.length - P + 1; i++) {
+        for(int i = 0; i <= binaryArray.length - K; i++) {
             int a = 0;
-            for(int j = i - i; j < P; j++) {
+            int abc = K;
+            int j = i;
+            while(abc-- > 0) {
                 a += binaryArray[j];
+                j++;
             }
             if(a > max) {
                 max = a;

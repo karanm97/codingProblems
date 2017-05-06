@@ -16,39 +16,31 @@ class CHEFSUBA {
         int N = fs.nextInt();
         int K = fs.nextInt();
         int P = fs.nextInt();
-        StringBuilder binaryArrayString = new StringBuilder();
+        int[] binaryArray = new int[N];
         for(int i = 0; i < N; i++) {
-            binaryArrayString.append(fs.nextInt());
+            binaryArray[i] = fs.nextInt();
         }
-        int binaryInt = Integer.parseInt(binaryArrayString.toString());
         char[] dogRequest = fs.nextLine().toCharArray();
         for(char charIterator : dogRequest) {
-            // System.out.println(charIterator);
             if(charIterator == '?') {
-                System.out.println(returnWindowMax(binaryInt, P, N));
+                System.out.println(returnWindowMax(binaryArray, P, N));
             } else {
-                binaryInt = returnCircular(binaryInt);
-                // System.out.println("here");
+                binaryArray = rotateArray(binaryArray, 1, N);
             }
         }
     }
 
-    public static int returnCircular(int binaryInt) {
-        return (binaryInt >>> 1) | (binaryInt << (Integer.SIZE - 1));
+    public static int[] rotateArray(int[] binaryArray, int k, int N) {
+        int temp = binaryArray[N - 1], i;
+        for (i = N - 2; i >= 0; i--) {
+            binaryArray[i + 1] = binaryArray[i];
+        }
+        binaryArray[0] = temp;
+        return binaryArray;
     }
 
-    public static int returnWindowMax(int binaryInt, int P, int N) {
-        int[] binaryArray = new int[N];
+    public static int returnWindowMax(int[] binaryArray, int P, int N) {
         int max = 0;
-        for(int i = N - 1; i >= 0; i--) {
-            int a = binaryInt % 10;
-            binaryInt = binaryInt / 10;
-            binaryArray[i] = a;
-        }
-        System.out.println("THE array is ");
-        for(int a : binaryArray) {
-            System.out.println(a);
-        }
         for(int i = 1; i <= binaryArray.length - P + 1; i++) {
             int a = 0;
             for(int j = i - i; j < P; j++) {

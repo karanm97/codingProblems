@@ -20,18 +20,45 @@ class CHEFSUBA {
         for(int i = 0; i < N; i++) {
             binaryArrayString.append(fs.nextInt());
         }
-        int binaryArray = Integer.parseInt(binaryArrayString.toString());
-        String[] dogRequest = fs.nextLine().split("");
-        for(String charIterator : dogRequest) {
-            if(charIterator == "?") {
+        int binaryInt = Integer.parseInt(binaryArrayString.toString());
+        char[] dogRequest = fs.nextLine().toCharArray();
+        for(char charIterator : dogRequest) {
+            // System.out.println(charIterator);
+            if(charIterator == '?') {
+                System.out.println(returnWindowMax(binaryInt, P, N));
             } else {
-                binaryArray = returnCircular(binaryArray);
+                binaryInt = returnCircular(binaryInt);
+                // System.out.println("here");
             }
         }
     }
 
-    public static int returnCircular(int binaryArray) {
-        return (binaryArray >>> 1) | (binaryArray << (Integer.SIZE - 1));
+    public static int returnCircular(int binaryInt) {
+        return (binaryInt >>> 1) | (binaryInt << (Integer.SIZE - 1));
+    }
+
+    public static int returnWindowMax(int binaryInt, int P, int N) {
+        int[] binaryArray = new int[N];
+        int max = 0;
+        for(int i = N - 1; i >= 0; i--) {
+            int a = binaryInt % 10;
+            binaryInt = binaryInt / 10;
+            binaryArray[i] = a;
+        }
+        System.out.println("THE array is ");
+        for(int a : binaryArray) {
+            System.out.println(a);
+        }
+        for(int i = 1; i <= binaryArray.length - P + 1; i++) {
+            int a = 0;
+            for(int j = i - i; j < P; j++) {
+                a += binaryArray[j];
+            }
+            if(a > max) {
+                max = a;
+            }
+        }
+        return max;
     }
 
     static class FastReader {

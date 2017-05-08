@@ -11,7 +11,7 @@ import java.lang.*;
 class CHEFSUBA {
 
     public static void main(String[] args) throws IOException {
-        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int N = fs.nextInt();
         int K = fs.nextInt();
@@ -32,31 +32,37 @@ class CHEFSUBA {
 
 
     // working
-    public static int[] rotateArray(int[] binaryArray, int k, int N) {
+    /*public static int[] rotateArray(int[] binaryArray, int K, int N) {
         int temp = binaryArray[N - 1], i;
         for (i = N - 2; i >= 0; i--) {
             binaryArray[i + 1] = binaryArray[i];
         }
         binaryArray[0] = temp;
         return binaryArray;
+    }*/
+
+    public static int[] rotateArray(int[] binaryArray, int K, int N) {
+        if (binaryArray == null || K < 0) {
+            throw new IllegalArgumentException("The array must be non-null and the order must be non-negative");
+        }
+        K = K % N;
+        int newArray[] = new int[N];
+        for(int i = 0 ; i < N ; i++) {
+            newArray[(K + i ) % N ] = binaryArray[i];
+        }
+        return newArray;
     }
 
-    // issue
-    public static int returnWindowMax(int[] binaryArray, int K, int N) {
-        int max = 0;
-        for(int i = 0; i <= binaryArray.length - K; i++) {
-            int a = 0;
-            int abc = K;
-            int j = i;
-            while(abc-- > 0) {
-                a += binaryArray[j];
-                j++;
+    public static int returnWindowMax(int binaryArray[], int K, int N) {
+        int max_sum = Integer.MIN_VALUE ;
+        for (int i = 0; i < N - K + 1; i++) {
+            int current_sum = 0;
+            for (int j = 0; j < K; j++) {
+                current_sum = current_sum + binaryArray[i + j];
             }
-            if(a > max) {
-                max = a;
-            }
+            max_sum = Math.max(current_sum, max_sum);
         }
-        return max;
+        return max_sum;
     }
 
     static class FastReader {

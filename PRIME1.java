@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Prime Generator
+Problem Code - PRIME1
+Link - https://www.codechef.com/problems/PRIME1
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -5,16 +11,36 @@ import java.lang.*;
 class PRIME1 {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while(testCases-- > 0) {
-        	int lowerLimit = fs.nextInt();
-        	int upperLimit = fs.nextInt();                  
-        	
+            int m = fs.nextInt();
+            int n = fs.nextInt();
+            for(int i = m; i <= n; i++) {
+                if(isPrime(i)) {
+                    System.out.println(i);
+                }
+            }
+            System.out.println();
         }
     }
-
+    static boolean isPrime(int number) {
+        if(number < 2) {
+            return false;
+        }
+        if(number == 2) {
+            return true;
+        }
+        if(number % 2 == 0) {
+            return false;
+        }
+        for(int i = 3; i <= Math.sqrt(number); i += 2) {
+            if(number % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;

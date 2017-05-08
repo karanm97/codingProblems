@@ -1,14 +1,49 @@
+/*
+Solution of Codechef Problem - Capital Movement
+Problem Code - CAPIMOVE
+Link - https://www.codechef.com/problems/CAPIMOVE
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
 
-class Capimove {
+class CAPIMOVE {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NumberFormatException {
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while(testCases-- > 0) {
-            
+            int planetCount = fs.nextInt();
+            Map<Integer, Integer> map = new HashMap<>();
+            PriorityQueue<Integer> queue = new PriorityQueue<>((x, y) -> y - x);
+            for(int i = 1; i <= planetCount; i++) {
+                int item = fs.nextInt();
+                queue.add(item);
+                map.put(item, i);
+            }
+            int[][] adjMatrix = new int[planetCount + 1][planetCount + 1];
+            try {
+                for(int i = 1; i <= planetCount - 1; i++) {
+                    int V = fs.nextInt();
+                    int U = fs.nextInt();
+                    adjMatrix[V][U] = 1;
+                    adjMatrix[U][V] = 1;
+                    adjMatrix[i][i] = 1;
+                }
+                adjMatrix[planetCount][planetCount] = 1;
+            } catch(Exception e) {
+                e.printStackTrace();
+            } finally {
+                for(int i = 1; i <= planetCount; i++) {
+                    PriorityQueue<Integer> copyQueue = new PriorityQueue<Integer>(queue);
+                    int temp = map.get(copyQueue.peek());
+                    while(adjMatrix[i][temp] != 0) {
+                        temp = map.get(copyQueue.poll());
+                    }
+                    System.out.print(temp + " ");
+                }
+            }
         }
     }
 

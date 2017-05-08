@@ -16,12 +16,13 @@ class PRIME1 {
         while(testCases-- > 0) {
             int m = fs.nextInt();
             int n = fs.nextInt();
+            StringBuilder outputString = new StringBuilder();
             for(int i = m; i <= n; i++) {
                 if(isPrime(i)) {
-                    System.out.println(i);
+                    outputString.append(i + "\n");
                 }
             }
-            System.out.println();
+            System.out.println(outputString);
         }
     }
     static boolean isPrime(int number) {

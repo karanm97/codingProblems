@@ -10,18 +10,18 @@ class UNICOURS {
         int testCases = fs.nextInt();
         while(testCases-- > 0) {
             int N = fs.nextInt();
-            Set<Integer> set = new HashSet<>();
-            for(int i = 1; i <= N; i++) {
-                set.add(i);
+            int counter = 0;
+            ArrayList<Integer> list = new ArrayList<>();
+            for(int i = 0; i < N; i++) {
+                list.add(fs.nextInt());
             }
             for(int i = 1; i <= N; i++) {
-                try {
-                    set.remove(fs.nextInt());
-                } catch(Exception e) {
-                    e.printStackTrace();
+                if(!list.contains(i)) {
+                    // System.out.println("i is "+i);
+                    counter++;
                 }
             }
-            System.out.println(set.size());
+            System.out.println(counter);
         }
     }
 

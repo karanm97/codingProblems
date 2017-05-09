@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Median of adjacent maximum numbers
+Problem Code - MXMEDIAN
+Link - https://www.codechef.com/MAY17/problems/MXMEDIAN
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -5,7 +11,6 @@ import java.lang.*;
 class MXMEDIAN {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while(testCases-- > 0) {

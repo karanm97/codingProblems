@@ -8,16 +8,21 @@ class WSITES01 {
         System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int N = fs.nextInt();
-        HashMap<Character,ArrayList<Integer>> map = new HashMap<>();
+        HashMap<Character, ArrayList<String>> map = new HashMap<Character, ArrayList<String>>();
+        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> blocked = new ArrayList<String>();
         for(int i = 0; i < N; i++) {
-        	String[] input = fs.nextLine().split(" ");
-        	if(input[0].equals(+)) {
-        		Character key = input[1].charAt(0);
-        		map.put(key,input[1]);
-        	}
-        	else {
-        		System.out.println("- encountered");
-        	}	
+            String[] input = fs.nextLine().split(" ");
+            if(input[0].equals("+")) {
+                Character key = input[1].charAt(0);
+                list.add(input[1]);
+                map.put(key, list);
+            } else {
+                blocked.add(input[1]);
+            }
+        }
+        for(String a : blocked) {
+            System.out.println(map.get(a.charAt(0)));;
         }
     }
 

@@ -8,7 +8,7 @@ import java.util.*;
 import java.io.*;
 import java.lang.*;
 
-class CHEFSUBA {
+class test {
 
     public static void main(String[] args) throws IOException {
         System.setIn(new FileInputStream("d:\\programming\\case.txt"));
@@ -16,49 +16,29 @@ class CHEFSUBA {
         int N = fs.nextInt();
         int K = fs.nextInt();
         int P = fs.nextInt();
-        int[] binaryArray = new int[N];
+        ArrayList<Integer> list = new ArrayList<>();
         for(int i = 0; i < N; i++) {
-            binaryArray[i] = fs.nextInt();
+            list.add(fs.nextInt());
         }
         char[] dogRequest = fs.nextLine().toCharArray();
         for(char charIterator : dogRequest) {
             if(charIterator == '?') {
-                System.out.println(returnWindowMax(binaryArray, K, N));
+                System.out.println(returnWindowMax(list, K, N));
             } else {
-                binaryArray = rotateArray(binaryArray, 1, N);
+                int temp1 = list.get(N - 1);
+                list.remove(N - 1);
+                list.add(0, temp1);
             }
         }
     }
 
-
-    // working
-    /*public static int[] rotateArray(int[] binaryArray, int K, int N) {
-        int temp = binaryArray[N - 1], i;
-        for (i = N - 2; i >= 0; i--) {
-            binaryArray[i + 1] = binaryArray[i];
-        }
-        binaryArray[0] = temp;
-        return binaryArray;
-    }*/
-
-    public static int[] rotateArray(int[] binaryArray, int K, int N) {
-        if (binaryArray == null || K < 0) {
-            throw new IllegalArgumentException("The array must be non-null and the order must be non-negative");
-        }
-        K = K % N;
-        int newArray[] = new int[N];
-        for(int i = 0 ; i < N ; i++) {
-            newArray[(K + i ) % N ] = binaryArray[i];
-        }
-        return newArray;
-    }
-
-    public static int returnWindowMax(int binaryArray[], int K, int N) {
+    public static int returnWindowMax(ArrayList list, int K, int N) {
         int max_sum = Integer.MIN_VALUE ;
         for (int i = 0; i < N - K + 1; i++) {
             int current_sum = 0;
             for (int j = 0; j < K; j++) {
-                current_sum = current_sum + binaryArray[i + j];
+                int temp = (int) list.get(i + j);
+                current_sum = current_sum + temp;
             }
             max_sum = Math.max(current_sum, max_sum);
         }

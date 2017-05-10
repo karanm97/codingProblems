@@ -8,28 +8,29 @@ import java.util.*;
 import java.io.*;
 import java.lang.*;
 
-class test {
+class CHEFSUBA {
 
     public static void main(String[] args) throws IOException {
         System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
-        int N = fs.nextInt();
-        int K = fs.nextInt();
-        int P = fs.nextInt();
+        int N = fs.nextInt(), K = fs.nextInt(), P = fs.nextInt();
         ArrayList<Integer> list = new ArrayList<>();
+        BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
         for(int i = 0; i < N; i++) {
             list.add(fs.nextInt());
         }
         char[] dogRequest = fs.nextLine().toCharArray();
         for(char charIterator : dogRequest) {
             if(charIterator == '?') {
-                System.out.println(returnWindowMax(list, K, N));
+                log.write(String.valueOf(returnWindowMax(list, K, N)) + "\n");
             } else {
                 int temp1 = list.get(N - 1);
                 list.remove(N - 1);
                 list.add(0, temp1);
             }
         }
+        log.flush();
+        log.close();
     }
 
     public static int returnWindowMax(ArrayList list, int K, int N) {

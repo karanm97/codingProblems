@@ -5,7 +5,7 @@ import java.lang.*;
 class BINTREE {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int queryCount = fs.nextInt();
         while(queryCount-- > 0) {
@@ -15,18 +15,35 @@ class BINTREE {
             long levelOfNumberTwo = (long) (Math.log(numberTwo) / Math.log(2L));
             boolean isNumOneOnLeftPart = checkIfLeftHalf(numberOne);
             boolean isNumTwoOnLeftPart = checkIfLeftHalf(numberTwo);
-            long difference = Math.abs(levelOfNumberTwo - levelOfNumberOne);
+            long difference = Math.abs((long) levelOfNumberTwo - levelOfNumberOne);
             if(difference > 1) {
                 if(isNumOneOnLeftPart == isNumTwoOnLeftPart) {
+                    // incorrect
                     System.out.println(difference);
                 } else {
-                    System.out.println(levelOfNumberTwo + levelOfNumberTwo);
+                	// correct
+                    System.out.println(levelOfNumberTwo + levelOfNumberOne);
                 }
             } else if(difference == 0) {
                 if(isNumTwoOnLeftPart == isNumTwoOnLeftPart) {
-                    System.out.println("2");
+                	long max, min;
+                	if(numberOne > numberTwo) {
+                	    max = numberOne;
+                	    min = numberTwo;
+                	} else {
+                	    min = numberOne;
+                	    max = numberTwo;
+                	}
+                	if(max == (min+1)) {
+                	    // correct
+                	    System.out.println("2");
+                	} else {
+                		// incorrect
+                	    System.out.println("3");
+                	}
                 } else {
-                    System.out.println(2 * levelOfNumberTwo);
+                	// correct
+                    System.out.println(levelOfNumberTwo + levelOfNumberOne);
                 }
             } else if(difference == 1) {
                 long max, min;
@@ -39,12 +56,15 @@ class BINTREE {
                 }
                 if(isNumTwoOnLeftPart == isNumTwoOnLeftPart) {
                     if(max == 2 * min || max == 2 * min + 1) {
+                        // correct
                         System.out.println("1");
                     } else {
+                    	// incorrect
                         System.out.println("3");
                     }
                 } else {
-                    System.out.println(levelOfNumberTwo + levelOfNumberTwo);
+                	// correct
+                    System.out.println(levelOfNumberTwo + levelOfNumberOne);
                 }
             }
         }

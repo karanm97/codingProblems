@@ -21,27 +21,26 @@ class DOWNLOAD {
             list.add(new Interval(fs.nextInt(), fs.nextInt()));
         }
         int groupCount = fs.nextInt();
-        int[] alientTime;
         for(int i = 0; i < groupCount; i++) {
             int alienCount = fs.nextInt();
-            alientTime = new int[alienCount];
+            int[] alientTime = new int[alienCount];
             for(int j = 0; j < alienCount; j++) {
-                alientTime[i] = fs.nextInt();
+                alientTime[j] = fs.nextInt();
             }
             System.out.println(solve(recipeCount, list, alientTime));
         }
     }
 
-    public static int solve(int recipeCount, ArrayList list, int[] alientTime) {
-        Set<Integer> set = new HashSet<>();
+    public static int solve(int recipeCount, ArrayList<Interval> list, int[] alientTime) {
+        Set<Integer> set = new HashSet<>(recipeCount);
         for (int j = 0; j < alientTime.length; j++) {
-        	int temp = alientTime[j];
+            int temp = alientTime[j];
             for(int i = 0; i < recipeCount; i++) {
-            	int lb = list.get(i).lowerBound;
-            	int ub = list.get(i).upperBound;
-            	if(lb <= temp && temp <= ub) {
-            		set.add(i);
-            	}
+                int lb = list.get(i).lowerBound;
+                int ub = list.get(i).upperBound;
+                if(lb <= temp && temp <= ub) {
+                    set.add(i);
+                }
             }
         }
         return set.size();

@@ -20,7 +20,7 @@ class BINTREE {
                 if(isNumOneOnLeftPart == isNumTwoOnLeftPart) {
                     System.out.println(difference);
                 } else {
-                    System.out.println(difference + 2);
+                    System.out.println(levelOfNumberTwo + levelOfNumberTwo);
                 }
             } else if(difference == 0) {
                 if(isNumTwoOnLeftPart == isNumTwoOnLeftPart) {

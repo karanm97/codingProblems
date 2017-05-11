@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Alien Chefs
+Problem Code - DOWNLOAD
+Link - https://www.codechef.com/problems/DOWNLOAD
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -13,7 +19,6 @@ class DOWNLOAD {
     }
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int recipeCount = fs.nextInt();
         ArrayList<Interval> list = new ArrayList<>(recipeCount);

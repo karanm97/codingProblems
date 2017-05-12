@@ -18,31 +18,29 @@ class BINTREE {
             long difference = Math.abs((long) levelOfNumberTwo - levelOfNumberOne);
             if(difference > 1) {
                 if(isNumOneOnLeftPart == isNumTwoOnLeftPart) {
-                    // incorrect
-                    System.out.println(difference);
+                    System.out.println(findParent(numberOne, numberTwo));
                 } else {
-                	// correct
+                    // correct
                     System.out.println(levelOfNumberTwo + levelOfNumberOne);
                 }
             } else if(difference == 0) {
                 if(isNumTwoOnLeftPart == isNumTwoOnLeftPart) {
-                	long max, min;
-                	if(numberOne > numberTwo) {
-                	    max = numberOne;
-                	    min = numberTwo;
-                	} else {
-                	    min = numberOne;
-                	    max = numberTwo;
-                	}
-                	if(max == (min+1)) {
-                	    // correct
-                	    System.out.println("2");
-                	} else {
-                		// incorrect
-                	    System.out.println("3");
-                	}
+                    long max, min;
+                    if(numberOne > numberTwo) {
+                        max = numberOne;
+                        min = numberTwo;
+                    } else {
+                        min = numberOne;
+                        max = numberTwo;
+                    }
+                    if(max == (min + 1)) {
+                        // correct
+                        System.out.println("2");
+                    } else {
+                        System.out.println(findParent(numberOne, numberTwo));
+                    }
                 } else {
-                	// correct
+                    // correct
                     System.out.println(levelOfNumberTwo + levelOfNumberOne);
                 }
             } else if(difference == 1) {
@@ -59,11 +57,10 @@ class BINTREE {
                         // correct
                         System.out.println("1");
                     } else {
-                    	// incorrect
-                        System.out.println("3");
+                        System.out.println(findParent(numberOne, numberTwo));
                     }
                 } else {
-                	// correct
+                    // correct
                     System.out.println(levelOfNumberTwo + levelOfNumberOne);
                 }
             }
@@ -78,6 +75,20 @@ class BINTREE {
         } else {
             return false;
         }
+    }
+
+    public static long findParent(long numberOne, long numberTwo) {
+        long counter = 0;
+        while(numberOne != numberTwo) {
+            if(numberOne > numberTwo) {
+                numberOne = numberOne / 2;
+                counter++;
+            } else {
+                numberTwo = numberTwo / 2;
+                counter++;
+            }
+        }
+        return counter;
     }
 
     static class FastReader {

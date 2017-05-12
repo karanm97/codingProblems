@@ -5,24 +5,24 @@ import java.lang.*;
 class BINTREE {
 
     public static void main(String[] args) throws IOException {
-        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int queryCount = fs.nextInt();
         while(queryCount-- > 0) {
-            long numberOne = fs.nextLong();
-            long numberTwo = fs.nextLong();
+            int numberOne = fs.nextInt();
+            int numberTwo = fs.nextInt();
             System.out.println(findParent(numberOne, numberTwo));
         }
     }
 
-    public static long findParent(long numberOne, long numberTwo) {
-        long counter = 0;
+    public static int findParent(int numberOne, int numberTwo) {
+        int counter = 0;
         while(numberOne != numberTwo) {
             if(numberOne > numberTwo) {
-                numberOne = numberOne / 2;
+                numberOne = numberOne >> 1;
                 counter++;
             } else {
-                numberTwo = numberTwo / 2;
+                numberTwo = numberTwo >> 1;
                 counter++;
             }
         }

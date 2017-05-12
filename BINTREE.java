@@ -11,69 +11,7 @@ class BINTREE {
         while(queryCount-- > 0) {
             long numberOne = fs.nextLong();
             long numberTwo = fs.nextLong();
-            long levelOfNumberOne = (long) (Math.log(numberOne) / Math.log(2L));
-            long levelOfNumberTwo = (long) (Math.log(numberTwo) / Math.log(2L));
-            boolean isNumOneOnLeftPart = checkIfLeftHalf(numberOne);
-            boolean isNumTwoOnLeftPart = checkIfLeftHalf(numberTwo);
-            long difference = Math.abs((long) levelOfNumberTwo - levelOfNumberOne);
-            if(difference > 1) {
-                if(isNumOneOnLeftPart == isNumTwoOnLeftPart) {
-                    System.out.println(findParent(numberOne, numberTwo));
-                } else {
-                    // correct
-                    System.out.println(levelOfNumberTwo + levelOfNumberOne);
-                }
-            } else if(difference == 0) {
-                if(isNumTwoOnLeftPart == isNumTwoOnLeftPart) {
-                    long max, min;
-                    if(numberOne > numberTwo) {
-                        max = numberOne;
-                        min = numberTwo;
-                    } else {
-                        min = numberOne;
-                        max = numberTwo;
-                    }
-                    if(max == (min + 1)) {
-                        // correct
-                        System.out.println("2");
-                    } else {
-                        System.out.println(findParent(numberOne, numberTwo));
-                    }
-                } else {
-                    // correct
-                    System.out.println(levelOfNumberTwo + levelOfNumberOne);
-                }
-            } else if(difference == 1) {
-                long max, min;
-                if(numberOne > numberTwo) {
-                    max = numberOne;
-                    min = numberTwo;
-                } else {
-                    min = numberOne;
-                    max = numberTwo;
-                }
-                if(isNumTwoOnLeftPart == isNumTwoOnLeftPart) {
-                    if(max == 2 * min || max == 2 * min + 1) {
-                        // correct
-                        System.out.println("1");
-                    } else {
-                        System.out.println(findParent(numberOne, numberTwo));
-                    }
-                } else {
-                    // correct
-                    System.out.println(levelOfNumberTwo + levelOfNumberOne);
-                }
-            }
-        }
-    }
-
-    public static boolean checkIfLeftHalf(long number) {
-        long minOfLevel = (long) Math.pow(2, number);
-        long maxOfLevel = minOfLevel + minOfLevel / 2 - 1;
-        if(number >= minOfLevel && number <= maxOfLevel) {
-            return true;
-        } else {
-            return false;
+            System.out.println(findParent(numberOne, numberTwo));
         }
     }
 

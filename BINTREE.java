@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Shortest Path in Binary Trees
+Problem Code - BINTREE
+Link - https://www.codechef.com/problems/BINTREE
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -5,7 +11,6 @@ import java.lang.*;
 class BINTREE {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int queryCount = fs.nextInt();
         while(queryCount-- > 0) {

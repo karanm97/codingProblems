@@ -10,17 +10,20 @@ import java.lang.*;
 
 class BINTREE {
 
+    static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
+
     public static void main(String[] args) throws IOException {
         FastReader fs = new FastReader();
         int queryCount = fs.nextInt();
         while(queryCount-- > 0) {
             int numberOne = fs.nextInt();
             int numberTwo = fs.nextInt();
-            System.out.println(findParent(numberOne, numberTwo));
+            findParent(numberOne, numberTwo);
         }
+        log.flush();
     }
 
-    public static int findParent(int numberOne, int numberTwo) {
+    public static void findParent(int numberOne, int numberTwo) throws IOException {
         int counter = 0;
         while(numberOne != numberTwo) {
             if(numberOne > numberTwo) {
@@ -31,7 +34,7 @@ class BINTREE {
                 counter++;
             }
         }
-        return counter;
+        log.write(String.valueOf(counter) + "\n");
     }
 
     static class FastReader {

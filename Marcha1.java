@@ -11,12 +11,14 @@ class Marcha1 {
         while(testCases-- > 0) {
             int noteCount = fs.nextInt();
             int muggerAmount = fs.nextInt();
-            int 
+            int[] amount = new int[noteCount];
+            int[] b = new int[1000000];
+            int flag = 0, top = 0;
             for(int i = 0; i < noteCount; i++) {
-            	int temp = fs.nextInt();
-            	if(temp <= muggerAmount) {
-
-            	}
+                int temp = fs.nextInt();
+                if(temp <= muggerAmount) {
+                    amount[i] = temp;
+                }
             }
         }
     }

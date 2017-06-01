@@ -21,6 +21,9 @@ class CHEFSUBA {
         // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
         int N = nI(), K = nI(), P = nI();
+        if(K > N) {
+            K = N;
+        }
         StringBuilder string = new StringBuilder();
         for(int i = 0; i < N; i++) {
             int temp = nI();

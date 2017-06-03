@@ -12,36 +12,24 @@ class PREFINVS {
 
     public static void main(String[] args) throws IOException {
         FastReader fs = new FastReader();
-        String[] inputArray = fs.nextLine().split("");
-        int index = inputArray.length - 1;
+        String inputString = fs.nextLine();
+        int index = inputString.length() - 1;
+        int counter = 0, number = 0;
         for(int i = index; i >= 0; i--) {
-            if(inputArray[i].equals("1")) {
-                index = i;
-                break;
+            number = inputString.charAt(i) - '0';
+            if(counter % 2 == 0) {
+                if(number - 1  == 0) {
+                    counter++;
+                }
+            } else {
+                if(number - 1 == -1) {
+                    counter++;
+                }
             }
-        }
-        int counter = 0;
-        while(index != 0) {
-            index = reverseArray(index, inputArray);
-            counter++;
         }
         System.out.println(counter);
     }
-    public static int reverseArray(int index, String[] inputArray) {
-        boolean foundIndex = true;
-        for(int i = index; i >= 0; i--) {
-            if(inputArray[i].equals("1")) {
-                inputArray[i] = "0";
-                if(foundIndex) {
-                    index = i;
-                    foundIndex = false;
-                }
-            } else {
-                inputArray[i] = "1";
-            }
-        }
-        return index;
-    }
+
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;

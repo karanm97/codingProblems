@@ -18,7 +18,7 @@ class XENRANK {
     static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
         int testCases = nI();
         while(testCases-- > 0) {
@@ -31,8 +31,8 @@ class XENRANK {
             } else if (V == 0) {
                 log.write(String.valueOf((U + 1) * (U + 2) / 2));
             } else {
-                int X = ((U + 1) * (U + 2) / 2), Y = ((V + 1) * (V) / 2 + 1);
-                int i = 1, j = 2;
+                long X = ((U + 1) * (U + 2) / 2), Y = ((V + 1) * (V) / 2 + 1);
+                long i = 1, j = 2;
                 while(X != Y) {
                     if(X < Y) {
                         X = X + (U + i);
@@ -44,8 +44,9 @@ class XENRANK {
                 }
                 log.write(String.valueOf(X));
             }
-            log.flush();
+            log.write("\n");
         }
+        log.flush();
     }
 
     public static void InputReader(InputStream stream1) {

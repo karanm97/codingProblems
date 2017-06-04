@@ -25,14 +25,26 @@ class XENRANK {
             int U = nI();
             int V = nI();
             if(U == 0 && V == 0) {
-                System.out.println("1");
+                log.write("1");
             } else if (U == 0) {
-                System.out.println((V + 1) * (V) / 2 + 1);
+                log.write(String.valueOf((V + 1) * (V) / 2 + 1));
             } else if (V == 0) {
-                System.out.println((U + 1) * (U + 2) / 2);
-            } else if (V == U) {
+                log.write(String.valueOf((U + 1) * (U + 2) / 2));
             } else {
+                int X = ((U + 1) * (U + 2) / 2), Y = ((V + 1) * (V) / 2 + 1);
+                int i = 1, j = 2;
+                while(X != Y) {
+                    if(X < Y) {
+                        X = X + (U + i);
+                        i++;
+                    } else {
+                        Y = Y + (V + j);
+                        j++;
+                    }
+                }
+                log.write(String.valueOf(X));
             }
+            log.flush();
         }
     }
 

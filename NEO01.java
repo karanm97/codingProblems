@@ -10,20 +10,40 @@ import java.lang.*;
 
 class NEO01 {
 
-	private static InputStream stream;
-	private static byte[] buf = new byte[1024];
-	private static int curChar;
-	private static int numChars;
-	private static SpaceCharFilter filter;
-	static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
-	
-	 public static void main(String[] args) throws IOException {
-		System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+    private static InputStream stream;
+    private static byte[] buf = new byte[1024];
+    private static int curChar;
+    private static int numChars;
+    private static SpaceCharFilter filter;
+    static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
+
+    public static void main(String[] args) throws IOException {
+        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
         int testCases = nI();
         while(testCases-- > 0) {
-        	
+            int size = nI();
+            long[] dishArray = new long[size];
+            for(int i = 0; i < size; i++) {
+                dishArray[i] = nL();
+            }
+            long result = 0, counter = 0, positive = 0;
+            for(int i = 0; i < size; i++) {
+                if(dishArray[i] >= 0) {
+                    positive += dishArray[i];
+                    counter++;
+                    if(i == size - 1) {
+                        result += (positive * counter);
+                    }
+                } else {
+                    result += (positive * counter) + dishArray[i];
+                    positive = 0;
+                    counter = 0;
+                }
+            }
+            log.write(String.valueOf(result) + "\n");
         }
+        log.close();
     }
 
     public static void InputReader(InputStream stream1) {

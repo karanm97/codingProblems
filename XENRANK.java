@@ -22,8 +22,17 @@ class XENRANK {
         InputReader(System.in);
         int testCases = nI();
         while(testCases-- > 0) {
-        	int U = nI();
-	        int V = nI();
+            int U = nI();
+            int V = nI();
+            if(U == 0 && V == 0) {
+                System.out.println("1");
+            } else if (U == 0) {
+                System.out.println((V + 1) * (V) / 2 + 1);
+            } else if (V == 0) {
+                System.out.println((U + 1) * (U + 2) / 2);
+            } else if (V == U) {
+            } else {
+            }
         }
     }
 

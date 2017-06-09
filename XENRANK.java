@@ -22,34 +22,29 @@ class XENRANK {
         InputReader(System.in);
         int testCases = nI();
         while(testCases-- > 0) {
-            int U = nI();
-            int V = nI();
+            long U = nL();
+            long V = nL();
             if(U == 0 && V == 0) {
                 log.write("1");
-            } else if (U == 0) {
-                log.write(String.valueOf((V + 1) * (V) / 2 + 1));
-            } else if (V == 0) {
-                log.write(String.valueOf((U + 1) * (U + 2) / 2));
             } else {
-                // int X = ((U + 1) * (U + 2) / 2), Y = ((V + 1) * (V) / 2 + 1);
-                // int i = 1, j = 2;
-                /*
-                while(X != Y) {
-                    if(X < Y) {
-                        X = X + (U + i);
-                        i++;
-                    } else {
-                        Y = Y + (V + j);
-                        j++;
-                    }
-                }*/
-                
-                // Alternate method working
-                int X = ((U + 1) * (U + 2)) / 2;
-                // System.out.println("X is " + X);
-                float sum = (2 * (U + 1) + (V - 1)) * ((float)V / 2) + X;
-                // System.out.println("Sum is " + sum);
-                log.write(String.valueOf((int)sum) + "\n");
+                // TLE with this approach
+                // long X = ((U + 1) * (U + 2) / 2), Y = ((V + 1) * (V) / 2 + 1);
+                // long i = 1, j = 2;
+                // while(X != Y) {
+                //     if(X < Y) {
+                //         X += (U + i++);
+                //     } else {
+                //         Y += (V + j++);
+                //     }
+                // }
+                // log.write(String.valueOf(Y) + "\n");
+                // ********************************
+                // ********************************
+                // ********************************
+                // WA with this approach
+                // long X = ((U + 1) * (U + 2)) >> 1;
+                double sum = (2 * (U + 1) + (V - 1)) * ((double)V / 2) + ((U + 1) * (U + 2))/2;
+                log.write(String.valueOf((long)sum) + "\n");
             }
         }
         log.flush();

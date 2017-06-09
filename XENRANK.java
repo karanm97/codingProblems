@@ -18,30 +18,13 @@ class XENRANK {
     static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
         int testCases = nI();
         while(testCases-- > 0) {
             long U = nL();
             long V = nL();
-            // TLE with this approach
-            // long X = ((U + 1) * (U + 2) / 2), Y = ((V + 1) * (V) / 2 + 1);
-            // long i = 1, j = 2;
-            // while(X != Y) {
-            //     if(X < Y) {
-            //         X += (U + i++);
-            //     } else {
-            //         Y += (V + j++);
-            //     }
-            // }
-            // log.write(String.valueOf(Y) + "\n");
-            // ********************************
-            // ********************************
-            // ********************************
-            // WA with this approach
-            // long X = ((U + 1) * (U + 2)) >> 1;
-            double sum = (2 * (U + 1) + (V - 1)) * ((double)V / 2) + ((U + 1) * (U + 2)) / 2;
-            log.write(String.valueOf((long)sum) + "\n");
+            long sum = ((2 * (U + 1) + (V - 1)) * (V)) / 2 + ((U + 1) * (U + 2)) / 2;
+            log.write(String.valueOf(sum) + "\n");
         }
         log.flush();
     }

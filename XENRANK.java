@@ -24,28 +24,24 @@ class XENRANK {
         while(testCases-- > 0) {
             long U = nL();
             long V = nL();
-            if(U == 0 && V == 0) {
-                log.write("1");
-            } else {
-                // TLE with this approach
-                // long X = ((U + 1) * (U + 2) / 2), Y = ((V + 1) * (V) / 2 + 1);
-                // long i = 1, j = 2;
-                // while(X != Y) {
-                //     if(X < Y) {
-                //         X += (U + i++);
-                //     } else {
-                //         Y += (V + j++);
-                //     }
-                // }
-                // log.write(String.valueOf(Y) + "\n");
-                // ********************************
-                // ********************************
-                // ********************************
-                // WA with this approach
-                // long X = ((U + 1) * (U + 2)) >> 1;
-                double sum = (2 * (U + 1) + (V - 1)) * ((double)V / 2) + ((U + 1) * (U + 2))/2;
-                log.write(String.valueOf((long)sum) + "\n");
-            }
+            // TLE with this approach
+            // long X = ((U + 1) * (U + 2) / 2), Y = ((V + 1) * (V) / 2 + 1);
+            // long i = 1, j = 2;
+            // while(X != Y) {
+            //     if(X < Y) {
+            //         X += (U + i++);
+            //     } else {
+            //         Y += (V + j++);
+            //     }
+            // }
+            // log.write(String.valueOf(Y) + "\n");
+            // ********************************
+            // ********************************
+            // ********************************
+            // WA with this approach
+            // long X = ((U + 1) * (U + 2)) >> 1;
+            double sum = (2 * (U + 1) + (V - 1)) * ((double)V / 2) + ((U + 1) * (U + 2)) / 2;
+            log.write(String.valueOf((long)sum) + "\n");
         }
         log.flush();
     }

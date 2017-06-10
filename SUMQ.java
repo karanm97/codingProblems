@@ -1,5 +1,5 @@
 /*
-Solution of Codechef Problem - Triplets 
+Solution of Codechef Problem - Triplets
 Problem Code - SUMQ
 Link - https://www.codechef.com/problems/SUMQ
 */
@@ -10,20 +10,49 @@ import java.lang.*;
 
 class SUMQ {
 
-	private static InputStream stream;
-	private static byte[] buf = new byte[1024];
-	private static int curChar;
-	private static int numChars;
-	private static SpaceCharFilter filter;
-	static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
-	
-	 public static void main(String[] args) throws IOException {
-		System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+    private static InputStream stream;
+    private static byte[] buf = new byte[1024];
+    private static int curChar;
+    private static int numChars;
+    private static SpaceCharFilter filter;
+    static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
+
+    public static void main(String[] args) throws IOException {
+        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
         int testCases = nI();
+        int pCount, qCount, rCount;
+        long[] p, q, r;
         while(testCases-- > 0) {
-        	
+            pCount = nI();
+            qCount = nI();
+            rCount = nI();
+            p = new long[pCount];
+            q = new long[qCount];
+            r = new long[rCount];
+            long result = 0;
+            for(int i = 0; i < pCount; i++) {
+                p[i] = nL();
+            }
+            for(int i = 0; i < qCount; i++) {
+                q[i] = nL();
+            }
+            for(int i = 0; i < rCount; i++) {
+                r[i] = nL();
+            }
+            for(int i = 0; i < pCount; i++) {
+                for(int j = 0; j < qCount; j++) {
+                    for(int k = 0; k < rCount; k++) {
+                        if((p[i] <= q[j]) && (r[k] <= q[j])) {
+                        	// System.out.println((p[i] + q[j]) * (r[k] + q[j]));
+                            result += (p[i] + q[j]) * (r[k] + q[j]);
+                        }
+                    }
+                }
+            }
+            log.write(String.valueOf(result) + "\n");
         }
+        log.flush();
     }
 
     public static void InputReader(InputStream stream1) {

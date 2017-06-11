@@ -7,6 +7,7 @@ Link - https://www.codechef.com/problems/NEO01
 import java.util.*;
 import java.io.*;
 import java.lang.*;
+import java.math.BigInteger;
 
 class NEO01 {
 
@@ -18,32 +19,30 @@ class NEO01 {
     static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
         int testCases = nI();
+        long result, counter, positive;
         while(testCases-- > 0) {
-            int size = nI();
-            long[] dishArray = new long[size];
-            for(int i = 0; i < size; i++) {
-                dishArray[i] = nL();
-            }
-            long result = 0, counter = 0, positive = 0;
-            for(int i = 0; i < size; i++) {
-                if(dishArray[i] >= 0) {
-                    positive += dishArray[i];
+            long size = nL();
+            result = 0;
+            counter = 0;
+            positive = 0;
+            while(size-- > 0) {
+                long temp = nL();
+                if(temp >= 0) {
+                    positive += temp;
                     counter++;
-                    if(i == size - 1) {
-                        result += (positive * counter);
-                    }
                 } else {
-                    result += (positive * counter) + dishArray[i];
+                    result += temp + (positive * counter);
                     positive = 0;
                     counter = 0;
                 }
             }
+            result += (positive * counter);
             log.write(String.valueOf(result) + "\n");
+            log.flush();
         }
-        log.close();
     }
 
     public static void InputReader(InputStream stream1) {

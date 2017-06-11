@@ -21,6 +21,8 @@ class NEO01 {
     public static void main(String[] args) throws IOException {
         System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
+        // Long approach
+        /*
         int testCases = nI();
         long result, counter, positive;
         while(testCases-- > 0) {
@@ -42,7 +44,26 @@ class NEO01 {
             result += (positive * counter);
             log.write(String.valueOf(result) + "\n");
             log.flush();
+            */
+        // BigInteger approach
+        int testCases = nI();
+        while(testCases-- > 0) {
+            long size = nL();
+            BigInteger resultBig = new BigInteger("0"),
+            counterBig = new BigInteger("0"), positiveBig = new BigInteger("0");
+            while(size-- > 0) {
+                BigInteger tempBig = BigInteger.valueOf(nL());
+                if(tempBig.compareTo(BigInteger.ZERO) >= 0) {
+                    positiveBig = positiveBig.add(tempBig);
+                    counterBig = counterBig.add(new BigInteger("1"));
+                } else {
+                    resultBig = resultBig.add(tempBig).add(positiveBig.multiply(counterBig));
+                }
+                resultBig = resultBig.add(positiveBig.multiply(counterBig));
+            }
+            log.write(String.valueOf(resultBig) + "\n");
         }
+        log.flush();
     }
 
     public static void InputReader(InputStream stream1) {

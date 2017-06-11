@@ -47,21 +47,25 @@ class NEO01 {
             */
         // BigInteger approach
         int testCases = nI();
-        while(testCases-- > 0) {
+        for(int j = 0; j < testCases && testCases <= 8 && testCases >= 1; j++) {
             long size = nL();
             BigInteger resultBig = new BigInteger("0"),
             counterBig = new BigInteger("0"), positiveBig = new BigInteger("0");
-            while(size-- > 0) {
-                BigInteger tempBig = BigInteger.valueOf(nL());
-                if(tempBig.compareTo(BigInteger.ZERO) >= 0) {
-                    positiveBig = positiveBig.add(tempBig);
-                    counterBig = counterBig.add(new BigInteger("1"));
-                } else {
-                    resultBig = resultBig.add(tempBig).add(positiveBig.multiply(counterBig));
+            if(size <= 100000 && size >= 1) {
+                for(int i = 0; i < size; i++) {
+                    BigInteger tempBig = BigInteger.valueOf(nL());
+                    if(tempBig.compareTo(BigInteger.ZERO) >= 0) {
+                        positiveBig = positiveBig.add(tempBig);
+                        counterBig = counterBig.add(BigInteger.ONE);
+                    } else {
+                        resultBig = resultBig.add(tempBig).add(positiveBig.multiply(counterBig));
+                        counterBig = BigInteger.ZERO;
+                        positiveBig = BigInteger.ZERO;
+                    }
                 }
                 resultBig = resultBig.add(positiveBig.multiply(counterBig));
             }
-            log.write(String.valueOf(resultBig) + "\n");
+            log.write(resultBig.toString() + "\n");
         }
         log.flush();
     }

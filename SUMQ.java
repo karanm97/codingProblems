@@ -23,33 +23,39 @@ class SUMQ {
         int testCases = nI();
         int pCount, qCount, rCount;
         long[] p, q, r;
-        while(testCases-- > 0) {
+        for(int z = 0; z < testCases; z++) {
             pCount = nI();
             qCount = nI();
             rCount = nI();
             p = new long[pCount];
             q = new long[qCount];
             r = new long[rCount];
-            long result = 0;
+            long result = 0, maxQ = Long.MIN_VALUE;
             for(int i = 0; i < pCount; i++) {
                 p[i] = nL();
             }
             for(int i = 0; i < qCount; i++) {
                 q[i] = nL();
+                if(q[i] > maxQ) {
+                    maxQ = q[i];
+                }
             }
             for(int i = 0; i < rCount; i++) {
                 r[i] = nL();
             }
-            for(int i = 0; i < pCount; i++) {
+            Arrays.sort(p);
+            Arrays.sort(q);
+            Arrays.sort(r);
+            for(int i = 0; i < pCount && p[i] <= maxQ; i++) {
                 for(int j = 0; j < qCount; j++) {
-                    for(int k = 0; k < rCount; k++) {
+                    for(int k = 0; k < rCount && r[k] <= maxQ; k++) {
                         if((p[i] <= q[j]) && (r[k] <= q[j])) {
-                        	// System.out.println((p[i] + q[j]) * (r[k] + q[j]));
-                            result += (p[i] + q[j]) * (r[k] + q[j]);
+                            result += ((p[i] + q[j]) * (r[k] + q[j]));
                         }
                     }
                 }
             }
+            result %= 1000000007;
             log.write(String.valueOf(result) + "\n");
         }
         log.flush();

@@ -4,9 +4,20 @@ Problem Code - J7
 Link - https://www.codechef.com/problems/J7
 */
 
+/*
+	Logic - For a rectangular box to have maximum volume, two of the sides need to be equal.
+	1) Let the sides of the rectangle be a, b, c.
+	2) Since we need the maximum volume, let b = c. Therefore sides are a, b, b.
+	3) We derive 2 Equations from the given parameters P and S. It goes as following.
+	4) Equation 1 : 4a + 8b = P 	// sum of lengths that form the rectangular frame
+	5) Equation 2 : 4*ab + 2*b^2 = S		// sum of the surface areas of the rectangular box
+	6) Solving equations 1 and 2, we find either a or b in terms of the b or a respectively.
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
+import java.text.DecimalFormat;
 
 class J7 {
 
@@ -18,11 +29,18 @@ class J7 {
     static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
+        DecimalFormat f = new DecimalFormat("##.00");
         int testCases = nI();
+        double commonSide, uniqueSide;
         while(testCases-- > 0) {
-        }
+     		int P = nI();
+     		int S = nI();
+     		commonSide = (P - Math.sqrt(P*P-24*S))/12;
+     		uniqueSide = (P/4) - (2*commonSide);
+     		log.write(f.format(uniqueSide*commonSide*commonSide) + "\n");
+     	}
+     	log.flush();
     }
 
     public static void InputReader(InputStream stream1) {

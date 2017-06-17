@@ -20,8 +20,38 @@ class KGOOD {
     public static void main(String[] args) throws IOException {
         System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
-        int testCases = nI();
+        Map<Character, Integer> map;
+        int testCases = nI(), value = 0;
         while(testCases-- > 0) {
+            String[] line = nLi().split(" ");
+            map = new HashMap<>();
+            for(int i = 0; i < line[0].length(); i++) {
+                char key = line[0].charAt(i);
+                if(map.containsKey(key)) {
+                    value = map.get(key);
+                    map.put(key, ++value);
+                } else {
+                    map.put(key, 1);
+                }
+            }
+            ArrayList<Integer> list = new ArrayList<>(map.values());
+            Collections.sort(list);
+            for(int a : list) {
+                log.write(a + " ");
+            }
+            long counter = 0, value1 = 0, value2 = 0;
+            for(int i = list.size() - 1; i >= 1; i--) {
+                for(int j = i - 1; j >= 0; j--) {
+                    value1 = list.get(i);
+                    value2 = list.get(j);
+                    if(Math.abs(value1 - value2) > Integer.parseInt(line[1])) {
+                        counter++;
+                        break;
+                    }
+                }
+            }
+            log.write(String.valueOf(counter) + "\n");
+            log.flush();
         }
     }
 

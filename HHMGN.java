@@ -22,14 +22,15 @@ class HHMGN {
         int testCases = nI();
         Integer[] array;
         int n;
-        long sum = 0, answer = -1, s;
+        long sum = 0, answer = 0, s;
         while(testCases-- > 0) {
             n = nI();
             s = nL();
+            sum = 0;
+            answer = -1;
             array = new Integer[n];
             array = readArray(array, n);
             Arrays.sort(array);
-            sum = 0;
             for(int i = 0; i < n; i++) {
                 if((sum + array[i] * (n - i)) == s) {
                     answer = array[i];

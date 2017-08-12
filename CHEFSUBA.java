@@ -1,7 +1,7 @@
 /*
 Solution of Codechef Problem - Chef and Sub Array
 Problem Code - CHEFSUBA
-Link - https://www.codechef.com/MAY17/problems/CHEFSUBA
+Link - https://www.codechef.com/problems/CHEFSUBA
 */
 
 import java.util.*;
@@ -20,39 +20,42 @@ class CHEFSUBA {
     public static void main(String[] args) throws IOException {
         // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
-        int N = nI(), K = nI(), P = nI();
-        if(K > N) {
-            K = N;
+        int n = nI();
+        int k = nI();
+        int p = nI();
+        int startIndex = 0;
+        k = Math.min(k, n);
+        int[] arr = new int[2 * n];
+        for(int i = 0; i < n; i++) {
+            arr[i] = arr[i + n] = nI();
         }
-        StringBuilder string = new StringBuilder();
-        for(int i = 0; i < N; i++) {
-            int temp = nI();
-            string.append(temp);
-        }
-        char[] dogRequest = nLi().toCharArray();
-        for(char charIterator : dogRequest) {
-            if(charIterator == '?') {
-                log.write(String.valueOf(returnWindowMax(string, K, N)) + "\n");
+        String input = nLi();
+        Deque<Integer> deck = new ArrayDeque<>();
+        int sum, max, windowIndex;
+        for(int i = 0; i < input.length(); i++) {
+            sum = 0;
+            max = Integer.MIN_VALUE;
+            if(input.charAt(i) == '?') {
+                for(int j = startIndex; j < startIndex + k; j++) {
+                    deck.add(arr[j]);
+                    sum += arr[j];
+                }
+                max = sum;
+                windowIndex = startIndex + k;
+                for(int j = windowIndex; j <= startIndex + n - 1; j++) {
+                    sum +=  arr[j] - deck.poll();
+                    deck.add(arr[j]);
+                    if(sum > max) {
+                        max = sum;
+                    }
+                }
+                deck.clear();
+                log.write(String.valueOf(max + "\n"));
             } else {
-                char lastChar = string.charAt(N - 1);
-                string.delete(N - 1, N);
-                string.insert(0, lastChar);
+                startIndex = (startIndex + n - 1) % n;
             }
         }
-        log.close();
-    }
-
-    public static long returnWindowMax(StringBuilder string1, int K, int N) {
-        long max_sum = Long.MIN_VALUE ;
-        for (int i = 0; i < N - K + 1; i++) {
-            int current_sum = 0;
-            for (int j = 0; j < K; j++) {
-                int temp = string1.charAt(i + j) - '0';
-                current_sum = current_sum + temp;
-            }
-            max_sum = Math.max(current_sum, max_sum);
-        }
-        return max_sum;
+        log.flush();
     }
 
     public static void InputReader(InputStream stream1) {

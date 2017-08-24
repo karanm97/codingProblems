@@ -5,22 +5,51 @@ import java.lang.*;
 class Marcha1 {
 
     public static void main(String[] args) throws IOException {
-        System.setIn(new FileInputStream("d:\\programming\\case.txt"));
+        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while(testCases-- > 0) {
             int noteCount = fs.nextInt();
             int muggerAmount = fs.nextInt();
-            int[] amount = new int[noteCount];
-            int[] b = new int[1000000];
-            int flag = 0, top = 0;
+            int[] coins = new int[noteCount];
             for(int i = 0; i < noteCount; i++) {
-                int temp = fs.nextInt();
-                if(temp <= muggerAmount) {
-                    amount[i] = temp;
+                coins[i] = fs.nextInt();
+            }
+            Arrays.sort(coins);
+            if(makeChange(noteCount, muggerAmount, coins)) {
+                System.out.println("Yes");
+            } else {
+                System.out.println("No");
+            }
+        }
+    }
+
+    public static boolean makeChange(int n, int m, int[] coins) {
+        boolean[][] dp = new boolean[n + 1][m + 1];
+        for(int i = 0; i < n + 1; i++) {
+            dp[i][0] = true;
+        }
+        for(int i = 1; i < m + 1; i++) {
+            dp[0][i] = false;
+        }
+        for(int i = 1; i < n + 1; i++) {
+            for(int j = 1; j < m + 1; j++) {
+                if(j - coins[i - 1] >= 0) {
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - coins[i - 1]];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
                 }
             }
         }
+        return dp[n][m];
+        // Prints the dp matrix
+        /*        for(int i = 0; i < n + 1; i++) {
+                    for(int j = 0; j < m + 1; j++) {
+                        System.out.print(dp[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+        */
     }
 
     static class FastReader {

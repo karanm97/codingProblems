@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Paying up
+Problem Code - MARCHA1
+Link - https://www.codechef.com/problems/MARCHA1
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -5,7 +11,6 @@ import java.lang.*;
 class Marcha1 {
 
     public static void main(String[] args) throws IOException {
-        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         FastReader fs = new FastReader();
         int testCases = fs.nextInt();
         while(testCases-- > 0) {

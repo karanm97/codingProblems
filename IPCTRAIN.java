@@ -1,14 +1,15 @@
+/*
+Solution of Codechef Problem - IPC Trainers
+Problem Code - IPCTRAIN
+Link - https://www.codechef.com/problems/IPCTRAIN
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
 
 class Trainer {
-    public int lectures, singleSadness;
-
-    public Trainer(int lectures, int singleSadness) {
-        this.lectures = lectures;
-        this.singleSadness = singleSadness;
-    }
+    int d, t, s;
 }
 
 class IPCTRAIN {
@@ -23,52 +24,55 @@ class IPCTRAIN {
     public static void main(String[] args) throws IOException {
         InputReader(System.in);
         int testCases = nI();
-        int n, d, ti, di, si, max, temp;
-        long totalSadness;
-        HashMap<Integer, Trainer> map;
-        PriorityQueue<Integer> queue;
         while(testCases-- > 0) {
-            n = nI();
-            d = nI();
-            totalSadness = 0;
-            map = new HashMap<>();
-            queue = new PriorityQueue<>((x, y) -> y - x);
+            int n = nI();
+            int d = nI();
+            Trainer trainer[] = new Trainer[n];
             for(int i = 0; i < n; i++) {
-                di = nI();
-                ti = nI();
-                si = nI();
-                map.put(di, new Trainer(ti, si));
-                totalSadness += (ti * si);
+                trainer[i] = new Trainer();
+                trainer[i].d = nI();
+                trainer[i].t = nI();
+                trainer[i].s = nI();
             }
-            Trainer obj;
+            Arrays.sort(trainer, new Comparator<Trainer>() {
+                public int compare(Trainer t1, Trainer t2) {
+                    if(t1.d > t2.d) {
+                        return 1;
+                    }
+                    if(t1.d < t2.d) {
+                        return -1;
+                    }
+                    return 0;
+                }
+            });
+            PriorityQueue<Trainer> queue = new PriorityQueue(1, new Comparator<Trainer>() {
+                public int compare(Trainer t1, Trainer t2) {
+                    if(t1.s > t2.s) {
+                        return -1;
+                    }
+                    if(t1.s < t2.s) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            });
+            int k = 0;
             for(int i = 1; i <= d; i++) {
-                max = temp = 0;
-                if(map.containsKey(i)) {
-                    obj = map.get(i);
-                    ti = obj.lectures;
-                    si = obj.singleSadness;
-                    if(ti >= 2) {
-                        for(int j = 0; j < ti - 1; j++) {
-                            queue.add(si);
-                        }
-                    }
-                    if(!queue.isEmpty()) {
-                        temp = queue.peek();
-                    }
-                    if(si >= temp) {
-                        max = si;
-                    } else {
-                        if(!queue.isEmpty()) {
-                            max = queue.poll();
-                            queue.add(si);
-                        }
-                    }
-                } else {
-                    if(!queue.isEmpty()) {
-                        max = queue.poll();
+                while(k < n && trainer[k].d == i) {
+                    queue.add(trainer[k]);
+                    k++;
+                }
+                if(queue.size() != 0) {
+                    queue.peek().t--;
+                    if(queue.peek().t == 0) {
+                        queue.poll();
                     }
                 }
-                totalSadness -= max;
+            }
+            long totalSadness = 0;
+            while(queue.size() != 0) {
+                Trainer temp = queue.poll();
+                totalSadness += (long)temp.t * temp.s;
             }
             log.write(String.valueOf(totalSadness) + "\n");
             log.flush();

@@ -22,20 +22,19 @@ class MINPERM {
         int testCases = nI();
         while(testCases-- > 0) {
             int n = nI();
-            StringBuilder stringBuilder = new StringBuilder();
             for(int i = 1; i <= n - 2; i++) {
                 if(i % 2 != 0) {
-                    stringBuilder.append(i + 1).append(" ");
+                    log.write(String.valueOf(i + 1 + " "));
                 } else {
-                    stringBuilder.append(i - 1).append(" ");
+                    log.write(String.valueOf(i - 1 + " "));
                 }
             }
             if(n % 2 != 0) {
-                stringBuilder.append((n) + " " + (n - 2));
+                log.write(String.valueOf(n + " " + (n - 2)));
             } else {
-                stringBuilder.append((n) + " " + (n - 1));
+                log.write(String.valueOf(n + " " + (n - 1)));
             }
-            log.write(stringBuilder.toString() + "\n");
+            log.write("\n");
             log.flush();
         }
     }

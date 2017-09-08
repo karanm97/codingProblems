@@ -35,54 +35,47 @@ class CHEFPDIG {
             if(input.indexOf("8") != input.lastIndexOf("8")) {
                 pairOfEight = true;
             }
-            HashMap<Character, Boolean> map = new HashMap<>();
             StringBuilder stringBuilder = new StringBuilder();
             if(digit[6]) {
                 for(int i = 5; i <= 9; i++) {
-                    if(digit[i] && !map.containsKey((char) (60 + i))) {
+                    if(digit[i]) {
                         if (i != 6) {
                             char letter = (char) (60 + i);
-                            map.put(letter, true);
-                            stringBuilder.append(letter);
+                            log.write(letter);
                         } else if(i == 6 && pairOfSix) {
-                            stringBuilder.append("B");
-                            map.put('B', true);
+                            log.write("B");
                         }
                     }
                 }
             }
             if(digit[7]) {
                 for(int i = 0; i <= 9; i++) {
-                    if(digit[i] && !map.containsKey((char) (70 + i))) {
+                    if(digit[i]) {
                         if (i != 7) {
                             char letter = (char) (70 + i);
-                            map.put(letter, true);
-                            stringBuilder.append(letter);
+                            log.write(letter);
                         } else if(i == 7 && pairOfSeven) {
-                            stringBuilder.append("M");
-                            map.put('M', true);
+                            log.write("M");
                         }
                     }
                 }
             }
             if(digit[8]) {
                 for(int i = 0; i <= 9; i++) {
-                    if(digit[i] && !map.containsKey((char) (80 + i))) {
+                    if(digit[i]) {
                         if (i != 8) {
                             char letter = (char) (80 + i);
-                            map.put(letter, true);
-                            stringBuilder.append(letter);
+                            log.write(letter);
                         } else if(i == 8 && pairOfEight) {
-                            stringBuilder.append("X");
-                            map.put('X', true);
+                            log.write("X");
                         }
                     }
                 }
             }
             if(digit[9] && digit[0]) {
-                stringBuilder.append("Z");
+                log.write("Z");
             }
-            log.write(stringBuilder.toString() + "\n");
+            log.write("\n");
             log.flush();
         }
     }

@@ -34,12 +34,13 @@ class SEACO {
                     for(int j = l - 1; j <= r - 1; j++) {
                         temp[j]++;
                     }
+                    arr = addArray(arr, temp, l - 1, r - 1);
                 } else {
                     for(int j = l; j <= r; j++) {
                         temp = addArray(temp, map.get(j), n);
                     }
+                    arr = addArray(arr, temp, n);
                 }
-                arr = addArray(arr, temp, n);
                 map.put(i, temp);
             }
             for(long a : arr) {
@@ -52,6 +53,13 @@ class SEACO {
 
     public static long[] addArray(long[] a, long[] b, int n) {
         for(int i = 0; i < n; i++) {
+            a[i] += b[i];
+        }
+        return a;
+    }
+
+    public static long[] addArray(long[] a, long[] b, int l, int r) {
+        for(int i = l; i <= r; i++) {
             a[i] += b[i];
         }
         return a;

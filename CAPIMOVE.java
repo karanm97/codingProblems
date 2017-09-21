@@ -10,82 +10,167 @@ import java.lang.*;
 
 class CAPIMOVE {
 
+    private static InputStream stream;
+    private static byte[] buf = new byte[1024];
+    private static int curChar;
+    private static int numChars;
+    private static SpaceCharFilter filter;
+    static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
+
     public static void main(String[] args) throws IOException, NumberFormatException {
-        FastReader fs = new FastReader();
-        int testCases = fs.nextInt();
+        InputReader(System.in);
+        int testCases = nI();
         while(testCases-- > 0) {
-            int planetCount = fs.nextInt();
-            Map<Integer, Integer> map = new HashMap<>();
-            PriorityQueue<Integer> queue = new PriorityQueue<>((x, y) -> y - x);
-            for(int i = 1; i <= planetCount; i++) {
-                int item = fs.nextInt();
-                queue.add(item);
-                map.put(item, i);
+            int n = nI();
+            int[] population = new int[n];
+            TreeMap<Integer, Integer> map = new TreeMap<>();
+            ArrayList<ArrayList<Integer>> neighbours = new ArrayList<>(n);
+            for(int i = 0; i < n; i++) {
+                population[i] = nI();
+                map.put(population[i], i);
+                neighbours.add(new ArrayList<>());
             }
-            int[][] adjMatrix = new int[planetCount + 1][planetCount + 1];
-            try {
-                for(int i = 1; i <= planetCount - 1; i++) {
-                    int V = fs.nextInt();
-                    int U = fs.nextInt();
-                    adjMatrix[V][U] = 1;
-                    adjMatrix[U][V] = 1;
-                    adjMatrix[i][i] = 1;
-                }
-                adjMatrix[planetCount][planetCount] = 1;
-            } catch(Exception e) {
-                e.printStackTrace();
-            } finally {
-                for(int i = 1; i <= planetCount; i++) {
-                    PriorityQueue<Integer> copyQueue = new PriorityQueue<Integer>(queue);
-                    int temp = map.get(copyQueue.peek());
-                    while(adjMatrix[i][temp] != 0) {
-                        temp = map.get(copyQueue.poll());
+            int capital = map.lastEntry().getValue();
+            for(int i = 0; i < n - 1; i++) {
+                int v = nI() - 1;
+                int u = nI() - 1;
+                neighbours.get(v).add(u);
+                neighbours.get(u).add(v);
+            }
+            HashSet<Integer> capitalNeighbours = new HashSet<>(neighbours.get(capital));
+            for(int i = 0; i < n; i++) {
+                if(i == capital || capitalNeighbours.contains(i)) {
+                    TreeMap<Integer, Integer> temporaryMap = new TreeMap<>();
+                    temporaryMap.put(population[i], i);
+                    map.remove(population[i]);
+                    for(Integer a : neighbours.get(i)) {
+                        temporaryMap.put(population[a], a);
+                        map.remove(population[a]);
                     }
-                    System.out.print(temp + " ");
+                    if(map.isEmpty()) {
+                        log.write("0\n");
+                    } else {
+                        log.write(String.valueOf(map.lastEntry().getValue() + 1) + " ");
+                    }
+                    map.putAll(temporaryMap);
+                } else {
+                    log.write(String.valueOf(capital + 1) + " ");
                 }
             }
+            log.write("\n");
+            log.flush();
         }
     }
 
-    static class FastReader {
-        BufferedReader br;
-        StringTokenizer st;
+    public static void InputReader(InputStream stream1) {
+        stream = stream1;
+    }
 
-        public FastReader() {
-            br = new BufferedReader(new InputStreamReader(System.in));
+    private static boolean isWhitespace(int c) {
+        return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+    }
+
+    private static boolean isEndOfLine(int c) {
+        return c == '\n' || c == '\r' || c == -1;
+    }
+
+    private static int read() {
+        if (numChars == -1) {
+            throw new InputMismatchException();
         }
-
-        String next() {
-            while (st == null || !st.hasMoreElements()) {
-                try {
-                    st = new StringTokenizer(br.readLine());
-                } catch (IOException  e) {
-                    e.printStackTrace();
-                }
-            }
-            return st.nextToken();
-        }
-
-        int nextInt() {
-            return Integer.parseInt(next());
-        }
-
-        long nextLong() {
-            return Long.parseLong(next());
-        }
-
-        double nextDouble() {
-            return Double.parseDouble(next());
-        }
-
-        String nextLine() {
-            String str = "";
+        if (curChar >= numChars) {
+            curChar = 0;
             try {
-                str = br.readLine();
+                numChars = stream.read(buf);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new InputMismatchException();
             }
-            return str;
+            if (numChars <= 0) {
+                return -1;
+            }
         }
+        return buf[curChar++];
+    }
+
+    private static int nI() {
+        int c = read();
+        while (isSpaceChar(c)) {
+            c = read();
+        }
+        int sgn = 1;
+        if (c == '-') {
+            sgn = -1;
+            c = read();
+        }
+        int res = 0;
+        do {
+            if (c < '0' || c > '9') {
+                throw new InputMismatchException();
+            }
+            res *= 10;
+            res += c - '0';
+            c = read();
+        } while (!isSpaceChar(c));
+        return res * sgn;
+    }
+
+    private static long nL() {
+        int c = read();
+        while (isSpaceChar(c)) {
+            c = read();
+        }
+        int sgn = 1;
+        if (c == '-') {
+            sgn = -1;
+            c = read();
+        }
+        long res = 0;
+        do {
+            if (c < '0' || c > '9') {
+                throw new InputMismatchException();
+            }
+            res *= 10;
+            res += c - '0';
+            c = read();
+        } while (!isSpaceChar(c));
+        return res * sgn;
+    }
+
+    private static String nS() {
+        int c = read();
+        while (isSpaceChar(c)) {
+            c = read();
+        }
+        StringBuilder res = new StringBuilder();
+        do {
+            res.appendCodePoint(c);
+            c = read();
+        } while (!isSpaceChar(c));
+        return res.toString();
+    }
+
+    private static String nLi() {
+        int c = read();
+        while (isSpaceChar(c)) {
+            c = read();
+        }
+        StringBuilder res = new StringBuilder();
+        do {
+            res.appendCodePoint(c);
+            c = read();
+        } while (!isEndOfLine(c));
+        return res.toString();
+    }
+
+    private static boolean isSpaceChar(int c) {
+        if (filter != null) {
+            return filter.isSpaceChar(c);
+        }
+        return isWhitespace(c);
+    }
+
+    private interface SpaceCharFilter {
+
+        public boolean isSpaceChar(int ch);
     }
 }

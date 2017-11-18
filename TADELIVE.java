@@ -10,14 +10,12 @@ import java.lang.*;
 
 class TADELIVE {
 
-    static class Node implements Comparable<Node> {
-        private int value, index;
-        public Node(int value, int index) {
-            this.value = value;
-            this.index = index;
-        }
-        public int compareTo(Node node) {
-            return this.value - node.value;
+    static class Node {
+        private int a, b, diff;
+        public Node(int a, int b) {
+            this.a = a;
+            this.b = b;
+            this.diff = a - b;
         }
     }
 
@@ -32,40 +30,44 @@ class TADELIVE {
         // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
         int n = nI();
-        int x = nI();
-        int y = nI();
-        int[] aTips = new int[n];
-        int[] bTips = new int[n];
-        int[] diffA = new int[n];
-        int[] diffB = new int[n];
-        int sumA = 0, sumB = 0, c = y, d = x;
-        PriorityQueue<Node> queueA = new PriorityQueue<Node>((p, q) -> q.value - p.value);
-        PriorityQueue<Node> queueB = new PriorityQueue<Node>((p, q) -> q.value - p.value);
+        int X = nI();
+        int Y = nI();
+        int[] A = new int[n];
+        int[] B = new int[n];
+        Node[] difference = new Node[n];
+        int sum = 0;
         for(int i = 0; i < n; i++) {
-            aTips[i] = nI();
+            A[i] = nI();
         }
         for(int i = 0; i < n; i++) {
-            bTips[i] = nI();
-            diffA[i] = aTips[i] - bTips[i];
-            diffB[i] = bTips[i] - aTips[i];
-            queueA.add(new Node(diffA[i], i));
-            queueB.add(new Node(diffB[i], i));
+            B[i] = nI();
+            difference[i] = new Node(A[i], B[i]);
         }
-        for(int i = 0; i < x; i++) {
-            sumA += aTips[queueA.poll().index];
+        Arrays.sort(difference, new Comparator<Node>() {
+            public int compare(Node n1, Node n2) {
+                return n2.diff - n1.diff;
+            }
+        });
+        for(int i = 0; i < n; i++) {
+            if(difference[i].diff > 0) {
+                if(X > 0) {
+                    X--;
+                    sum += difference[i].a;
+                } else {
+                    Y--;
+                    sum += difference[i].b;
+                }
+            } else {
+                if(Y > 0) {
+                    Y--;
+                    sum += difference[i].b;
+                } else {
+                    X--;
+                    sum += difference[i].a;
+                }
+            }
         }
-        while(!queueA.isEmpty() && c >= 1) {
-            sumA += bTips[queueA.poll().index];
-            c--;
-        }
-        for(int i = 0; i < y; i++) {
-            sumB += bTips[queueB.poll().index];
-        }
-        while(!queueB.isEmpty() && d >= 1) {
-            sumB += aTips[queueB.poll().index];
-            d--;
-        }
-        log.write(String.valueOf(Math.max(sumA, sumB)) + "\n");
+        log.write(String.valueOf(sum) + "\n");
         log.flush();
     }
 

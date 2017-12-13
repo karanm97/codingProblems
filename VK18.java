@@ -18,19 +18,23 @@ class VK18 {
     static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
         int testCases = nI();
+        long[] dp = new long[2000001];
+        long[] sum = new long[2000001];
+        long[] ans = new long[1000001];
+        for(int i = 1; i <= 2000000; i++) {
+            dp[i] = calculateDiamonds(i);
+        }
+        for(int i = 1; i <= 2000000; i++) {
+            sum[i] = sum[i - 1] + dp[i];
+        }
+        ans[1] = 2;
+        for(int i = 2; i <= 1000000; i++) {
+            ans[i] = ans[i - 1] + 2 * (sum[2 * i - 1] - sum[i]) + dp[i * 2];
+        }
         while(testCases-- > 0) {
-            int n = nI();
-            long sum = 0;
-            for(int i = 1, q = n, j = 1, k = 1; i <= n; i++, q--, k++) {
-                sum += calculateDiamonds(i + j) * i;
-                if(q > 1) {
-                    sum += calculateDiamonds(q + n) * k;
-                }
-            }
-            log.write(String.valueOf(sum) + "\n");
+            log.write(String.valueOf(ans[nI()]) + "\n");
         }
         log.flush();
     }

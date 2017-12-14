@@ -20,18 +20,14 @@ class VK18 {
     public static void main(String[] args) throws IOException {
         InputReader(System.in);
         int testCases = nI();
-        long[] dp = new long[2000001];
         long[] sum = new long[2000001];
         long[] ans = new long[1000001];
         for(int i = 1; i <= 2000000; i++) {
-            dp[i] = calculateDiamonds(i);
-        }
-        for(int i = 1; i <= 2000000; i++) {
-            sum[i] = sum[i - 1] + dp[i];
+            sum[i] = sum[i - 1] + calculateDiamonds(i);
         }
         ans[1] = 2;
         for(int i = 2; i <= 1000000; i++) {
-            ans[i] = ans[i - 1] + 2 * (sum[2 * i - 1] - sum[i]) + dp[i * 2];
+            ans[i] = ans[i - 1] + 2 * (sum[2 * i - 1] - sum[i]) + calculateDiamonds(i * 2);
         }
         while(testCases-- > 0) {
             log.write(String.valueOf(ans[nI()]) + "\n");

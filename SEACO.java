@@ -15,54 +15,43 @@ class SEACO {
     private static int curChar;
     private static int numChars;
     private static SpaceCharFilter filter;
+    private static final long MOD = 1000000007;
     static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
+        // System.setIn(new FileInputStream("d:\\programming\\case.txt"));
         InputReader(System.in);
-        int testCases = nI();
-        while(testCases-- > 0) {
+        int testcases = nI();
+        while(testcases-- > 0) {
             int n = nI();
             int m = nI();
-            HashMap<Integer, long[]> map = new HashMap<>();
-            long[] arr = new long[n];
+            int[][] commands = new int[m + 1][3];
+            long[] range = new long[n + 2];
+            long[] cnt = new long[m + 1];
             for(int i = 1; i <= m; i++) {
-                int type = nI();
-                int l = nI();
-                int r = nI();
-                long[] temp = new long[n];
-                if(type == 1) {
-                    for(int j = l - 1; j <= r - 1; j++) {
-                        temp[j]++;
-                    }
-                    arr = addArray(arr, temp, l - 1, r - 1);
-                } else {
-                    for(int j = l; j <= r; j++) {
-                        temp = addArray(temp, map.get(j), n);
-                    }
-                    arr = addArray(arr, temp, n);
-                }
-                map.put(i, temp);
+                commands[i] = new int[] {nI(), nI(), nI()};
             }
-            for(long a : arr) {
-                log.write(String.valueOf(a % 1000000007) + " ");
+            Arrays.fill(cnt, 1);
+            for(int i = m; i >= 1; i--) {
+                if(commands[i][0] == 2) {
+                    for(int j = commands[i][1]; j <= commands[i][2]; j++) {
+                        cnt[j] += cnt[i] % MOD;
+                    }
+                }
+            }
+            for(int i = 1; i <= m; i++) {
+                if(commands[i][0] == 1) {
+                    range[commands[i][1]] += cnt[i] % MOD;
+                    range[commands[i][2] + 1] -= cnt[i] % MOD;
+                }
+            }
+            for(int i = 1; i <= n; i++) {
+                range[i] += range[i - 1];
+                log.write(String.valueOf(range[i] % MOD) + " ");
             }
             log.write("\n");
             log.flush();
         }
-    }
-
-    public static long[] addArray(long[] a, long[] b, int n) {
-        for(int i = 0; i < n; i++) {
-            a[i] += b[i];
-        }
-        return a;
-    }
-
-    public static long[] addArray(long[] a, long[] b, int l, int r) {
-        for(int i = l; i <= r; i++) {
-            a[i] += b[i];
-        }
-        return a;
     }
 
     public static void InputReader(InputStream stream1) {

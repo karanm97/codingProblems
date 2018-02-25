@@ -18,21 +18,19 @@ class GAMENUMB {
     static BufferedWriter log = new BufferedWriter(new OutputStreamWriter(System.out));
 
     static class Pair implements Comparable<Pair> {
-        int a, n;
+        int value, count, id;
 
-        public Pair(int a, int n) {
-            this.a = a;
-            this.n = n;
+        public Pair(int value, int count, int id) {
+            this.value = value;
+            this.count = count;
+            this.id = id;
         }
 
-        public int compareTo(Pair x) {
-            if(a == x.a) {
-                return 0;
-            } else if(a > x.a) {
-                return 1;
-            } else {
-                return -1;
+        public int compareTo(Pair o) {
+            if (value != o.value) {
+                return value - o.value;
             }
+            return id - o.id;
         }
     }
 
@@ -42,69 +40,37 @@ class GAMENUMB {
         while(testCases-- > 0) {
             int n = nI();
             int k = nI();
-            int[] arrA = new int[n];
-            int[] arrN = new int[n];
-            PriorityQueue<Pair> maxQueue = new PriorityQueue<>((x, y) -> y.a - x.a);
-            PriorityQueue<Pair> minQueue = new PriorityQueue<>();
-            long oddSum = 0, evenSum = 0;
+            int[] a = new int[n];
+            int[] d = new int[n];
             for(int i = 0; i < n; i++) {
-                arrA[i] = nI();
+                a[i] = nI();
             }
+            long cardCount = 0, sum = 0;
+            TreeSet<Pair> treeSet = new TreeSet<>();
             for(int i = 0; i < n; i++) {
-                arrN[i] = nI();
-                maxQueue.add(new Pair(arrA[i], arrN[i]));
+                d[i] = nI();
+                treeSet.add(new Pair(a[i], d[i], i));
+                cardCount += d[i];
             }
             for(int i = 0; i < k; i++) {
-                int arrB = nI();
-                if((i + 1) % 2 == 1) {
-                    if(maxQueue.peek().n > arrB) {
-                        oddSum = (maxQueue.peek().a * arrB);
-                        minQueue.add(new Pair(maxQueue.peek().a, arrB));
+                long b = nL();
+                long current = cardCount - b;
+                while (current > 0) {
+                    Pair p = i % 2 == 0 ? treeSet.pollFirst() : treeSet.pollLast();
+                    if (current >= p.count) {
+                        current -= p.count;
                     } else {
-                        int total = arrB;
-                        Pair pair;
-                        while(total > 0) {
-                            pair = maxQueue.peek();
-                            if(total - pair.n >= 0) {
-                                total -= pair.n;
-                                minQueue.add(new Pair(pair.a, pair.n));
-                                oddSum += (pair.a * pair.n);
-                                maxQueue.poll();
-                            } else {
-                                minQueue.add(new Pair(pair.a, total));
-                                oddSum += (pair.a * total);
-                                break;
-                            }
-                        }
+                        p.count -= current;
+                        current = 0;
+                        treeSet.add(p);
                     }
-                    maxQueue.clear();
-                    evenSum = 0;
-                } else {
-                    if(minQueue.peek().n > arrB) {
-                        evenSum = (minQueue.peek().a * arrB);
-                        maxQueue.add(new Pair(minQueue.peek().a, arrB));
-                    } else {
-                        int total = arrB;
-                        Pair pair;
-                        while(total > 0) {
-                            pair = minQueue.peek();
-                            if(total - pair.n >= 0) {
-                                total -= pair.n;
-                                maxQueue.add(new Pair(pair.a, pair.n));
-                                evenSum += (pair.a * pair.n);
-                                minQueue.poll();
-                            } else {
-                                maxQueue.add(new Pair(pair.a, total));
-                                evenSum += (pair.a * total);
-                                break;
-                            }
-                        }
-                    }
-                    minQueue.clear();
-                    oddSum = 0;
                 }
+                cardCount = b;
             }
-            log.write(String.valueOf(k % 2 == 1 ? oddSum : evenSum) + "\n");
+            for (Pair o : treeSet) {
+                sum += (long) o.value * o.count;
+            }
+            log.write(String.valueOf(sum) + "\n");
         }
         log.flush();
     }

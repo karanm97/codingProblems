@@ -33,16 +33,14 @@ class CO92MATR {
             }
             if(processLastRow(a, n - 1, m - 1) && processLastColumn(a, n - 1, m - 1)) {
                 Outer:
-                for(int i = n - 1; i >= 0; i--) {
-                    for(int j = m - 1; j >= 0; j--) {
+                for(int i = n - 2; i >= 0; i--) {
+                    for(int j = m - 2; j >= 0; j--) {
                         if(a[i][j] == -1) {
                             a[i][j] = Math.min(a[i + 1][j], a[i][j + 1]);
                         }
-                        if(i != n - 1 && j != m - 1) {
-                            if(a[i][j] > a[i][j + 1] || a[i][j] > a[i + 1][j]) {
-                                isPossible = false;
-                                break Outer;
-                            }
+                        if(a[i][j] > a[i][j + 1] || a[i][j] > a[i + 1][j]) {
+                            isPossible = false;
+                            break Outer;
                         }
                     }
                 }

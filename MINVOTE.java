@@ -1,3 +1,9 @@
+/*
+Solution of Codechef Problem - Minions and Voting
+Problem Code - MINVOTE
+Link - https://www.codechef.com/problems/MINVOTE
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -20,51 +26,33 @@ class MINVOTE {
             for(int i = 0; i < n; i++) {
                 arr[i] = nL();
             }
+            long[] votes = new long[n];
             for(int i = 0; i < n; i++) {
-                int count = 0;
-                if(i == 0) {
-                    log.write(String.valueOf(traverseRight(arr, i, n)) + " ");
-                } else if(i == n - 1) {
-                    log.write(String.valueOf(traverseLeft(arr, i, n)) + " ");
-                } else {
-                    log.write(String.valueOf(traverseLeft(arr, i, n) + traverseRight(arr, i, n)) + " ");
+                long sum = 0 ;
+                for(int j = i + 1; j < n; j++) {
+                    if(sum <= arr[i]) {
+                        votes[j]++;
+                    } else {
+                        break;
+                    }
+                    sum += arr[j];
                 }
+                sum = 0 ;
+                for(int j = i - 1; j >= 0; j--) {
+                    if(sum <= arr[i]) {
+                        votes[j]++;
+                    } else {
+                        break;
+                    }
+                    sum += arr[j];
+                }
+            }
+            for(long a : votes) {
+                log.write(String.valueOf(a) + " ");
             }
             log.write("\n");
         }
         log.flush();
-    }
-
-    public static int traverseRight(long[] arr, int i, int n) {
-        int j = i + 1, count = 0;
-        long sum = 0;
-        while(j < n) {
-            if(j == i + 1) {
-                count++;
-            } else if(sum <= arr[j]) {
-                count++;
-            }
-            sum += arr[j];
-            j++;
-        }
-        return count;
-        // System.out.print(count + " ");
-    }
-
-    public static int traverseLeft(long[] arr, int i, int n) {
-        int j = i - 1, count = 0;
-        long sum = 0;
-        while(j >= 0) {
-            if(j == i - 1) {
-                count++;
-            } else if(sum <= arr[j]) {
-                count++;
-            }
-            sum += arr[j];
-            j--;
-        }
-        return count;
-        // System.out.println(count);
     }
 
     public static void InputReader(InputStream stream1) {
